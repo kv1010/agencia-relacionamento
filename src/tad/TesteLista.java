@@ -6,11 +6,11 @@ public class TesteLista {
 
         //teste
         lista.add(15);
-        lista.add(40);
-        lista.add(8);
+        //lista.add(40);
+        //lista.add(8);
 
         ListaIdentificadores.Celula atual = lista.head.prox;
-        while (atual!= null) {
+        while ((lista.isEmpty()) == true) {
             System.out.println(atual.item);
             atual = atual.prox;
         }

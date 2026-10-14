@@ -44,4 +44,9 @@ public class ListaIdentificadores {
         return size;
     }
 
+    //verifica se a lista está vazia ou não
+    public boolean isEmpty() {
+        return head.prox == null;
+    }
+
 }
