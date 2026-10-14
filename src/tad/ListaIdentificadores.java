@@ -2,7 +2,7 @@ package tad;
 
 public class ListaIdentificadores {
     // atributos
-    Celula head;
+    private Celula head;
     private Celula tail;
     private int size;
 
@@ -50,7 +50,7 @@ public class ListaIdentificadores {
     }
 
     //verifica se um id ja existe na lista
-    public boolean contain(int id) {
+    public boolean contains(int id) {
         Celula atual = head.prox;
         while (atual != null) {
             if (atual.item == id)
