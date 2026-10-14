@@ -42,4 +42,27 @@ public class Candidato {
         }
         return false;
     }
+
+    //retorna o id
+    public int getId() {
+        return id;
+    }
+
+    //Adiciona o identificador do candidato v na lista de potenciais companheiros
+    public void inserePotencialCompanheiro(Candidato v) {
+        if (v != null) {
+            this.potenciaisCompanheiros.add(v.getId());
+        }
+    }
+
+    //Retorna quantos companheiros estão na lista
+    public int numeroCompanheiros() {
+        return this.potenciaisCompanheiros.size();
+    }
+
+    //Retorna o vetor (int[]) com os IDs dos companheiros
+    public int[] listaCompanheiros() {
+        return this.potenciaisCompanheiros.toArray();
+    }
+    
 }
