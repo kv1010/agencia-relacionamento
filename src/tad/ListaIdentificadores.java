@@ -2,7 +2,7 @@ package tad;
 
 public class ListaIdentificadores {
     // atributos
-    private Celula head;
+    Celula head;
     private Celula tail;
     private int size;
 
@@ -31,5 +31,12 @@ public class ListaIdentificadores {
         size = 0;
     }
 
+    //insere no fim da lista
+    public void add(int id) {
+        Celula nova = new Celula(id);
+        tail.prox = nova;
+        tail = nova;
+        size++;
+    }
 
 }
