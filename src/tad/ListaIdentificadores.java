@@ -49,4 +49,15 @@ public class ListaIdentificadores {
         return head.prox == null;
     }
 
+    //verifica se um id ja existe na lista
+    public boolean contain(int id) {
+        Celula atual = head.prox;
+        while (atual != null) {
+            if (atual.item == id)
+                return true;
+            atual = atual.prox;
+        }
+        return false;
+    }
+
 }

@@ -6,15 +6,18 @@ public class TesteLista {
 
         //teste
         lista.add(15);
-        //lista.add(40);
-        //lista.add(8);
+        lista.add(40);
+        lista.add(8);
 
-        ListaIdentificadores.Celula atual = lista.head.prox;
-        while ((lista.isEmpty()) == true) {
+        /* ListaIdentificadores.Celula atual = lista.head.prox;
+        while (atual != null) {
             System.out.println(atual.item);
             atual = atual.prox;
         }
-        System.out.println();
+        System.out.println(); */
+
+        System.out.println("tem 20?" + lista.contain(20));
+        System.out.println("tem 8?" + lista.contain(8));
 
         System.out.println(lista.size());
 
