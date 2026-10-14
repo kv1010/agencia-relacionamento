@@ -20,8 +20,8 @@ public class Candidato {
         } else {
             this.siglaEstado = "";
         }
-        this.sexo = sexo;
-        this.sexoInteresse = sexoInteresse;
+        this.sexo = Character.toUpperCase(sexo);
+        this.sexoInteresse = Character.toUpperCase(sexoInteresse);
         this.areaInteresse = new boolean[8];
         this.potenciaisCompanheiros= new  ListaIdentificadores();
 
@@ -58,12 +58,13 @@ public class Candidato {
         return false;
     }
 
+    //limpa os companheiros que foram adicionados
     public void limpaCompanheiros() {
         this.potenciaisCompanheiros.clear();
     }
 
     //registar as áreas de interesse no vetor
-    public boolean marcarInteresse(int area) {
+    private boolean marcarInteresse(int area) {
         if (area >= 1 && area <=8) {
             this.areaInteresse[(area - 1)] = true;
             return true;
@@ -127,6 +128,40 @@ public class Candidato {
             }
         }
         return areas;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEstado(String siglaEstado) {
+        if (siglaEstado != null) {
+            this.siglaEstado = siglaEstado.toUpperCase();
+        } else {
+            this.siglaEstado = "";
+        }
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = Character.toUpperCase(sexo);
+    }
+
+    public void setSexoInteresse(char sexoInteresse) {
+        this.sexoInteresse = Character.toUpperCase(sexoInteresse);
+    }
+
+    public void setAreas(int[] areas) {
+        if (areaInteresse != null) {
+            for (int i = 0; i < areaInteresse.length; i++) { 
+                this.areaInteresse[i] = false;
+            }
+        }
+        
+        if (areas != null) {
+            for (int i = 0; i < areas.length; i++) {
+                marcarInteresse(areas[i]);
+            }
+        }
     }
     
     
