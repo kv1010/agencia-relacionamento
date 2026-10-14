@@ -70,27 +70,65 @@ public class Candidato {
         }
         return false;
     }
-
-    //retorna o id
-    public int getId() {
-        return id;
-    }
-
+    
     //Adiciona o identificador do candidato v na lista de potenciais companheiros
     public void inserePotencialCompanheiro(Candidato v) {
         if (v != null) {
             this.potenciaisCompanheiros.add(v.getId());
         }
     }
-
+    
     //Retorna quantos companheiros estão na lista
     public int numeroCompanheiros() {
         return this.potenciaisCompanheiros.size();
     }
-
+    
     //Retorna o vetor (int[]) com os IDs dos companheiros
     public int[] listaCompanheiros() {
         return this.potenciaisCompanheiros.toArray();
     }
     
+    //retorna o id
+    public int getId() {
+        return id;
+    }
+    //retorna o nome
+    public String getNome() {
+        return nome;
+    }
+    //retorna a siglaEstado
+    public String getEstado() {
+        return siglaEstado;
+    }
+    //retorna o sexo
+    public char getSexo() {
+        return sexo;
+    }
+    //rwtorna o sexo de interesse
+    public char getSexoInteresse() {
+        return sexoInteresse;
+    }
+
+    //retorna as areas escolhidas
+    public int[] getAreas() {
+        int contAreas = 0;
+        for (int i = 0; i < areaInteresse.length; i++) {
+            if (areaInteresse[i] != false) {
+                contAreas ++;
+            }
+        }
+        
+        int[] areas = new int[contAreas];
+        int idArea = 0;
+        for (int i = 0; i < areaInteresse.length; i++) {
+            if (areaInteresse[i] != false) {
+                areas[idArea] = (i+1);
+                idArea++;
+            }
+        }
+        return areas;
+    }
+    
+    
+
 }
