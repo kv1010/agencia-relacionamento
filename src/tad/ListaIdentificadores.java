@@ -39,4 +39,9 @@ public class ListaIdentificadores {
         size++;
     }
 
+    //retorna o tamanho da lista
+    public int size() {
+        return size;
+    }
+
 }

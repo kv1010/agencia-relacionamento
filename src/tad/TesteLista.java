@@ -16,5 +16,7 @@ public class TesteLista {
         }
         System.out.println();
 
+        System.out.println(lista.size());
+
     }
 }
