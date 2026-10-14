@@ -67,4 +67,17 @@ public class ListaIdentificadores {
         size = 0;
     }
 
+    //Copia os elementos da lista pra um vetor
+    public int[] toArray() {
+        int[] vetor = new int[size]; //vetor com tamanho size
+        Celula atual = head.prox;
+        int i = 0;
+        while (atual != null) {
+            vetor[i] = atual.item;//vetor[i] recebe o item da celula atual 
+            i++;
+            atual = atual.prox;
+        }
+        return vetor;
+    }
+
 }

@@ -16,12 +16,17 @@ public class TesteLista {
         }
         System.out.println(); */
 
-        System.out.println("tem 20?" + lista.contain(20));
+        /* System.out.println("tem 20?" + lista.contain(20));
         System.out.println("tem 8?" + lista.contain(8));
 
         System.out.println(lista.size());
         lista.clear();
-        System.out.println(lista.size());
+        System.out.println(lista.size()); */
+
+        int[] lista1 = lista.toArray();
+        for (int i = 0; i < lista1.length; i++) {
+            System.out.print(lista1[i] + "\t");
+        }
 
     }
 }
