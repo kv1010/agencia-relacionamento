@@ -18,8 +18,20 @@ public class Candidato {
         this.siglaEstado = siglaEstado;
         this.sexo = sexo;
         this.sexoInteresse = sexoInteresse;
-        this.areaInteresse = new boolean[9];
+        this.areaInteresse = new boolean[8];
         this.potenciaisCompanheiros= new  ListaIdentificadores();
+    }
+
+    //calcular o grau de interesse em comum com o candidato v
+    private int calculaGrauInteresse(Candidato v) {
+        int[] pesos = {1, 2, 1, 1, 3, 2, 2, 3}; //pesos das areas
+        int grauTotal = 0; //local para guardar a soma para os pesos
+        for (int i = 0; i < pesos.length; i++) {
+            if (this.temInteresse(i) && v.temInteresse(i)) { //se ambos tem interessa na mesma area soma o peso
+                grauTotal += pesos[i];
+            }
+        }
+        return grauTotal;
     }
 
     //retorna verdadeiro se o estado do candidato corresponde a sigla fornecida
@@ -30,7 +42,7 @@ public class Candidato {
     //retorna verdadeiro se o candidato possui interesse na area informada
     public boolean temInteresse(int id) {
         if (id >= 1 && id <= 8) {
-            return this.areaInteresse[id];
+            return this.areaInteresse[(id - 1)];
         }
         return false;
     }
