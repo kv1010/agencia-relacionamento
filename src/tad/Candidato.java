@@ -11,6 +11,8 @@ public class Candidato {
     private boolean[] areaInteresse; //vetor de 1 a 8 das areas
     private ListaIdentificadores potenciaisCompanheiros; //lista encadeada
 
+    private static int grauMinimo = 0;
+
     //construtor
     public Candidato(int id, String nome, String siglaEstado, char sexo, char sexoInteresse, int[] areas) {
         this.id = id;
@@ -23,7 +25,7 @@ public class Candidato {
         this.sexo = Character.toUpperCase(sexo);
         this.sexoInteresse = Character.toUpperCase(sexoInteresse);
         this.areaInteresse = new boolean[8];
-        this.potenciaisCompanheiros= new  ListaIdentificadores();
+        this.potenciaisCompanheiros= new ListaIdentificadores();
 
         if (areas != null) {
             for (int i = 0; i < areas.length; i++) {
@@ -38,9 +40,8 @@ public class Candidato {
         int grauTotal = 0; //local para guardar a soma para os pesos
         for (int i = 0; i < pesos.length; i++) {
             int idArea = (i + 1);
-            if (this.temInteresse(idArea) && v.temInteresse(idArea)) { //se ambos tem interessa na mesma area soma o peso
+            if (this.temInteresse(idArea) && v.temInteresse(idArea)) //se ambos tem interessa na mesma area soma o peso
                 grauTotal += pesos[i];
-            }
         }
         return grauTotal;
     }
@@ -63,7 +64,7 @@ public class Candidato {
         this.potenciaisCompanheiros.clear();
     }
 
-    //registar as áreas de interesse no vetor
+    //registrar as áreas de interesse no vetor
     private boolean marcarInteresse(int area) {
         if (area >= 1 && area <=8) {
             this.areaInteresse[(area - 1)] = true;
@@ -93,19 +94,23 @@ public class Candidato {
     public int getId() {
         return id;
     }
+    
     //retorna o nome
     public String getNome() {
         return nome;
     }
+
     //retorna a siglaEstado
     public String getEstado() {
         return siglaEstado;
     }
+
     //retorna o sexo
     public char getSexo() {
         return sexo;
     }
-    //rwtorna o sexo de interesse
+
+    //retorna o sexo de interesse
     public char getSexoInteresse() {
         return sexoInteresse;
     }
@@ -114,7 +119,7 @@ public class Candidato {
     public int[] getAreas() {
         int contAreas = 0; //conta a qtd de areas escolhidas
         for (int i = 0; i < areaInteresse.length; i++) {
-            if (areaInteresse[i] != false) {
+            if (areaInteresse[i]) {
                 contAreas ++;
             }
         }
@@ -122,7 +127,7 @@ public class Candidato {
         int[] areas = new int[contAreas]; //vetor para as areas escolhidas
         int idArea = 0; //contador para o vetor
         for (int i = 0; i < areaInteresse.length; i++) {
-            if (areaInteresse[i] != false) {
+            if (areaInteresse[i]) {
                 areas[idArea] = (i+1);
                 idArea++; //aumenta o indice somente quando recebe um elemento
             }
@@ -130,10 +135,21 @@ public class Candidato {
         return areas;
     }
 
+    //recebe graumin
+    public static int getGrauMinimo() {
+        return grauMinimo;
+    }
+    //altera graumin
+    public static void setGrauMinimo(int grauMinimo) {
+        Candidato.grauMinimo = grauMinimo;
+    }
+
+    //altera nome
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    //altera siglaEstado
     public void setEstado(String siglaEstado) {
         if (siglaEstado != null) {
             this.siglaEstado = siglaEstado.toUpperCase();
@@ -142,28 +158,26 @@ public class Candidato {
         }
     }
 
+    //altera sexo
     public void setSexo(char sexo) {
         this.sexo = Character.toUpperCase(sexo);
     }
 
+    //altera sexoInteresse
     public void setSexoInteresse(char sexoInteresse) {
         this.sexoInteresse = Character.toUpperCase(sexoInteresse);
     }
 
+    //altera areasInteresse
     public void setAreas(int[] areas) {
-        if (areaInteresse != null) {
-            for (int i = 0; i < areaInteresse.length; i++) { 
-                this.areaInteresse[i] = false;
-            }
+        for (int i = 0; i < areaInteresse.length; i++) { 
+            this.areaInteresse[i] = false; //apagando todas as areas de interesse
         }
         
         if (areas != null) {
             for (int i = 0; i < areas.length; i++) {
-                marcarInteresse(areas[i]);
+                marcarInteresse(areas[i]); //inserindo as novas
             }
         }
     }
-    
-    
-
 }
