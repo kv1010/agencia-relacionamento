@@ -60,4 +60,11 @@ public class ListaIdentificadores {
         return false;
     }
 
+    //limpar a lista
+    public void clear() {
+        head.prox = null;
+        tail = head;
+        size = 0;
+    }
+
 }
