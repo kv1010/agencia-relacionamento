@@ -11,7 +11,7 @@ public class Candidato {
     private boolean[] areaInteresse; //vetor de 1 a 8 das areas
     private ListaIdentificadores potenciaisCompanheiros; //lista encadeada
 
-    private static int grauMinimo = 0;
+    private static int grauMinimo = 0; //é estático e vale para todos os candidatos
 
     //construtor
     public Candidato(int id, String nome, String siglaEstado, char sexo, char sexoInteresse, int[] areas) {
@@ -40,7 +40,7 @@ public class Candidato {
         int grauTotal = 0; //local para guardar a soma para os pesos
         for (int i = 0; i < pesos.length; i++) {
             int idArea = (i + 1);
-            if (this.temInteresse(idArea) && v.temInteresse(idArea)) //se ambos tem interessa na mesma area soma o peso
+            if (this.temInteresse(idArea) && v.temInteresse(idArea)) //se ambos tem interesse na mesma area soma o peso
                 grauTotal += pesos[i];
         }
         return grauTotal;
@@ -63,7 +63,7 @@ public class Candidato {
             return false;
         }
 
-        // d) Grau de interesse em comum maior ou igual ao grau mínimo estático (cálculo pesado por último)
+        //Grau de interesse em comum maior ou igual ao grau mínimo estático (cálculo pesado por último)
         if (this.calculaGrauInteresse(v) < grauMinimo) {
             return false;
         }
@@ -72,7 +72,7 @@ public class Candidato {
     }
 
     // Retorna verdadeiro se o candidato atual aceita o sexo do candidato v (considerando 'I' como coringa)
-    public boolean atendeOrientacao(Candidato v) {
+    private boolean atendeOrientacao(Candidato v) {
         return this.sexoInteresse == 'I' || this.sexoInteresse == v.getSexo();
     }
 
