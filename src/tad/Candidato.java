@@ -46,6 +46,36 @@ public class Candidato {
         return grauTotal;
     }
 
+    // Retorna verdadeiro se v é um potencial companheiro válido para este candidato
+    public boolean verificaPotencialCompanheiro(Candidato v) {
+        //não é null e é diferente de this
+        if (v == null || this.id == v.getId()) {
+            return false;
+        }
+
+        //Mesmo estado
+        if (!this.siglaEstado.equals(v.getEstado())) {
+            return false;
+        }
+
+        //Orientação MÚTUA (this atende v E v atende esta)
+        if (!this.atendeOrientacao(v) || !v.atendeOrientacao(this)) {
+            return false;
+        }
+
+        // d) Grau de interesse em comum maior ou igual ao grau mínimo estático (cálculo pesado por último)
+        if (this.calculaGrauInteresse(v) < grauMinimo) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Retorna verdadeiro se o candidato atual aceita o sexo do candidato v (considerando 'I' como coringa)
+    public boolean atendeOrientacao(Candidato v) {
+        return this.sexoInteresse == 'I' || this.sexoInteresse == v.getSexo();
+    }
+
     //retorna verdadeiro se o estado do candidato corresponde a sigla fornecida
     public boolean reside(String sigla) {
         return this.siglaEstado.equalsIgnoreCase(sigla);
