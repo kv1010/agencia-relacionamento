@@ -111,19 +111,19 @@ public class Candidato {
 
     //retorna as areas escolhidas
     public int[] getAreas() {
-        int contAreas = 0;
+        int contAreas = 0; //conta a qtd de areas escolhidas
         for (int i = 0; i < areaInteresse.length; i++) {
             if (areaInteresse[i] != false) {
                 contAreas ++;
             }
         }
         
-        int[] areas = new int[contAreas];
-        int idArea = 0;
+        int[] areas = new int[contAreas]; //vetor para as areas escolhidas
+        int idArea = 0; //contador para o vetor
         for (int i = 0; i < areaInteresse.length; i++) {
             if (areaInteresse[i] != false) {
                 areas[idArea] = (i+1);
-                idArea++;
+                idArea++; //aumenta o indice somente quando recebe um elemento
             }
         }
         return areas;
