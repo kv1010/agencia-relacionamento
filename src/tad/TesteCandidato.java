@@ -2,7 +2,7 @@ package tad;
 
 public class TesteCandidato {
 
-    // monta uma lista de areas (sem vetor) para usar no construtor
+    // monta uma lista de areas para usar no construtor
     private static ListaIdentificadores areas(int a, int b, int c) {
         ListaIdentificadores l = new ListaIdentificadores();
         l.add(a);
@@ -31,8 +31,6 @@ public class TesteCandidato {
         Candidato carlos = new Candidato(4, "Carlos", "MG", 'M', 'M', areas(1, 3, 5));
         Candidato diana = new Candidato(5, "Diana", "MG", 'F', 'I', areas(3, 5));
 
-        // ---------- PARTE 1: grau, estado, orientacao, areas ----------
-
         // Teste de grau mínimo (Ana e Bruno têm grau 4 em comum)
         Candidato.setGrauMinimo(3);
         System.out.println("Ana verifica Bruno (grau min 3): " + ana.verificaPotencialCompanheiro(bruno)); // true
@@ -49,7 +47,7 @@ public class TesteCandidato {
         // Teste de orientação mútua (Carlos)
         System.out.println("Ana verifica Carlos: " + ana.verificaPotencialCompanheiro(carlos)); // false
 
-        // Teste com o coringa 'I'
+        // Teste com o I
         Candidato.setGrauMinimo(2);
         System.out.println("Bruno verifica Diana ('I'): " + bruno.verificaPotencialCompanheiro(diana)); // true
 
@@ -73,25 +71,6 @@ public class TesteCandidato {
         System.out.println("Tem interesse na área 2 após setAreas: " + ana.temInteresse(2)); // true
         ana.setAreas(areas(1, 3, 5)); // volta ao original para os proximos testes
 
-        /*
-         * COMMIT 16
-         * Título: Testa Candidato: grau de interesse, estado, orientação mútua e áreas
-         * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Reescrita do TesteCandidato para o construtor com ListaIdentificadores, testando grau mínimo, estado, orientação mútua com o coringa I, casos limite, área repetida/inválida e setAreas.
-         * Relatório de teste:
-         *   Ana x Bruno, grau mín. 3 (grau em comum 4) -> esperado true -> obtido true (OK)
-         *   Ana x Bruno, grau mín. 6 -> esperado false -> obtido false (OK)
-         *   Bruno x Ana, grau mín. 3 (simetria) -> esperado true -> obtido true (OK)
-         *   Ana x Carla (estados diferentes) -> esperado false -> obtido false (OK)
-         *   Ana x Carlos (orientação não mútua) -> esperado false -> obtido false (OK)
-         *   Bruno x Diana (Diana aceita I), grau mín. 2 -> esperado true -> obtido true (OK)
-         *   Ana x null e Ana x Ana -> esperado false e false -> obtido false e false (OK)
-         *   áreas 3, 3 e 9 (repetida e inválida) -> esperado "[ 3 ]" -> obtido "[ 3 ]" (OK)
-         *   estado "mg" no construtor -> esperado "MG" -> obtido "MG" (OK)
-         *   setAreas só com a área 2 -> esperado área 1 false e área 2 true -> obtido igual (OK)
-         */
-
-        // ---------- PARTE 2: companheiros, reside, temInteresse, toString ----------
-
         // Teste dos companheiros
         ana.inserePotencialCompanheiro(bruno);
         ana.inserePotencialCompanheiro(diana);
@@ -108,17 +87,5 @@ public class TesteCandidato {
 
         // Teste do toString
         System.out.println("toString da Ana: " + ana); // 1 - Ana
-
-        /*
-         * COMMIT 20
-         * Título: Testa Candidato: lista de companheiros, reside, temInteresse e toString
-         * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Ampliação do TesteCandidato com inserePotencialCompanheiro, numeroCompanheiros, listaCompanheiros (agora ListaIdentificadores), limpaCompanheiros, reside sem diferenciar maiúsculas, temInteresse e toString.
-         * Relatório de teste:
-         *   inserir Bruno e Diana como companheiros da Ana -> esperado número 2 e lista "[ 2 5 ]" -> obtido igual (OK)
-         *   limpaCompanheiros -> esperado 0 -> obtido 0 (OK)
-         *   reside("mg") e reside("SP") para a Ana (MG) -> esperado true e false -> obtido igual (OK)
-         *   temInteresse(5) e temInteresse(2) para a Ana (áreas 1, 3, 5) -> esperado true e false -> obtido igual (OK)
-         *   toString da Ana -> esperado "1 - Ana" -> obtido "1 - Ana" (OK)
-         */
     }
 }

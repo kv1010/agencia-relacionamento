@@ -43,15 +43,3 @@ public class TesteListaEncadeada {
     }
 }
 
-/*
- * COMMIT 06
- * Título: Testa ListaEncadeada (inserção, acesso por posição, posição inválida e limpeza)
- * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Criação do TesteListaEncadeada com lista de String para testar add, get, size, isEmpty, clear e toString.
- * Relatório de teste:
- *   lista nova -> esperado "[ ] true" -> obtido "[ ] true" (OK)
- *   add Ana, Bruno, Carla -> esperado "[ Ana Bruno Carla ]" -> obtido igual (OK)
- *   get(0), get(1), get(2) e size -> esperado Ana, Bruno, Carla e 3 -> obtido igual (OK)
- *   get(-1) e get(3) -> esperado IndexOutOfBoundsException -> lançada nos dois casos (OK)
- *   clear -> esperado "[ ] true 0" -> obtido igual (OK)
- *   add depois do clear -> esperado "[ Diana ]" -> obtido igual (OK)
- */

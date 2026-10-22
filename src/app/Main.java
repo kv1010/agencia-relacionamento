@@ -14,9 +14,7 @@ public class Main {
     private static ListaEncadeada<Candidato> candidatos; //todos os candidatos lidos do arquivo
     private static boolean paresCalculados = false; //só vira true depois da tarefa 1
 
-    // ------------------------------------------------------------------
-    // LEITURA DE DADOS (cada leitura mostra ao usuario o que pode digitar)
-    // ------------------------------------------------------------------
+    //ler dados
 
     // le um numero inteiro do teclado (repete ate o usuario digitar certo)
     private static int lerInteiro(String mensagem) {
@@ -105,9 +103,7 @@ public class Main {
         return areas;
     }
 
-    // ------------------------------------------------------------------
-    // LISTAGENS AUXILIARES (mostradas antes de pedir um dado ao usuario)
-    // ------------------------------------------------------------------
+    // listas auxiliares
 
     // texto com os codigos das areas
     private static String textoAreas() {
@@ -222,11 +218,7 @@ public class Main {
         }
     }
 
-    // ------------------------------------------------------------------
-    // MENU PRINCIPAL
-    // ------------------------------------------------------------------
-
-    // mostra o menu na tela
+    //menu
     private static void mostrarMenu() {
         System.out.println();
         System.out.println("===== AGENCIA DE RELACIONAMENTO =====");
@@ -242,8 +234,7 @@ public class Main {
         System.out.println("0 - Sair");
     }
 
-    // programa principal: le o arquivo e repete o menu ate o usuario sair
-    // uso: java app.Main [caminho do arquivo]  (se nao informar, usa candidatos.txt)
+    //le o arquivo e repete o menu ate o usuario sair
     public static void main(String[] args) {
         String arquivo = "candidatos.txt";
         if (args.length > 0) {
@@ -299,9 +290,7 @@ public class Main {
         }
     }
 
-    // ------------------------------------------------------------------
     // TAREFAS 1 A 6
-    // ------------------------------------------------------------------
 
     // Tarefa 1: le o grau de interesse e recalcula os companheiros de todos
     private static void tarefa1() {
@@ -373,10 +362,10 @@ public class Main {
             return;
         }
         if (k > candidatos.size()) {
-            k = candidatos.size(); //se K for maior que o total, imprime todos
+            k = candidatos.size();
         }
 
-        //guarda os ids que ja foram impressos (sem usar vetor)
+        //guarda os ids que ja foram impressos
         ListaIdentificadores jaImpressos = new ListaIdentificadores();
 
         for (int posicao = 1; posicao <= k; posicao++) {
@@ -468,16 +457,15 @@ public class Main {
         }
     }
 
-    // ------------------------------------------------------------------
-    // CADASTRO, LISTAGEM E PERFIL DOS CANDIDATOS
-    // ------------------------------------------------------------------
+    // cadastro e listagem/perfil
 
-    // Opcao 7: cadastra um novo candidato (fica so na memoria, o candidatos.txt nao e alterado)
+    //cadastra um novo candidato (candidatos.txt nao e alterado)
     private static void cadastrarCandidato() {
         System.out.println("--- Cadastro de novo candidato ---");
         String nome = lerTexto("Nome: ");
 
-        //mostra os estados que ja existem; se a sigla digitada for nova, ela passa a ser cadastrada
+        //mostra os estados que ja existem
+        //se a sigla digitada for nova ela passa a ser cadastrada
         listarEstados();
         String estado = lerEstado("Sigla do estado (uma da lista ou um estado novo): ");
         boolean estadoNovo = !estadoCadastrado(estado);
@@ -494,7 +482,7 @@ public class Main {
             areas = lerAreas();
         }
 
-        //o id e a posicao na lista, entao o novo candidato recebe o proximo numero
+        //id e a posicao na lista
         Candidato novo = new Candidato(candidatos.size(), nome, estado, sexo, sexoInteresse, areas);
         candidatos.add(novo);
 
@@ -506,7 +494,7 @@ public class Main {
         System.out.println("Execute a opcao 1 novamente para recalcular os pares.");
     }
 
-    // Opcao 8: imprime todos os candidatos com os dados principais
+    //8: imprime todos os candidatos com os dados principais
     private static void imprimirCandidatos() {
         if (candidatos.isEmpty()) {
             System.out.println("Nenhum candidato cadastrado.");
@@ -571,7 +559,7 @@ public class Main {
         }
     }
 
-    // menu de alteracao: fica aberto ate o usuario escolher 0 (concluir), podendo alterar varios campos
+    //menu de alteracao
     private static void alterarDados(Candidato c) {
         boolean alterou = false;
 
@@ -636,7 +624,7 @@ public class Main {
         }
 
         if (alterou) {
-            paresCalculados = false; //os pares antigos nao valem mais
+            paresCalculados = false; //pares antigos nao valem mais
             System.out.println("Alteracoes concluidas: " + c);
             System.out.println("Execute a opcao 1 novamente para recalcular os pares.");
         } else {
@@ -644,31 +632,3 @@ public class Main {
         }
     }
 }
-
-/*
- * COMMIT 41
- * Título: Mostra os estados cadastrados e registra estado novo no cadastro e na alteração
- *
- * COMMIT 42
- * Título: Torna a alteração de dados um menu em laço que só termina na opção 0 (concluir)
- *
- * COMMIT 43
- * Título: Adiciona a opção 8 (imprimir todos os candidatos) e a opção 9 (perfil do candidato com menu)
- * (a antiga opção 8 "Atualizar os dados" passou para dentro do perfil)
- *
- * COMMIT 44
- * Título: Mostra a faixa de valores válidos nos pedidos de grau (0 a 15) e de K (1 a total)
- *
- * COMMIT 45
- * Título: Testa cadastro com estado novo, perfil, alteração em laço, impressão e top K
- * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução do menu com o arquivo de exemplo: perfil do candidato 0, alteração de estado (novo), sexo (inválido e válido) e sexo de interesse numa mesma sessão, cadastro de candidato com estado novo e área inválida, opção 8 e tarefa 3.
- * Relatório de teste:
- *   opção 9 com id 0 -> esperado lista de candidatos antes do pedido e perfil com áreas por nome -> obtido igual (OK)
- *   alterar estado para "rj" (novo) -> esperado aviso de estado novo e "Estados cadastrados: [ RJ MG SP ]" -> obtido igual (OK)
- *   sexo "x" -> esperado "Valor invalido, digite F ou M." e pedir de novo -> obtido igual (OK)
- *   alterar vários campos -> esperado o menu de alteração continuar aberto até a opção 0 -> obtido igual (OK)
- *   após alterar -> esperado pares invalidados e "Defina o grau de interesse na tarefa 1 antes." no perfil -> obtido igual (OK)
- *   cadastro com estado "ba" e área 9 -> esperado aviso de estado novo, pedir as áreas de novo e lista com BA -> obtido "[ RJ MG SP BA ]" (OK)
- *   opção 8 -> esperado os 4 candidatos com estado, sexos e áreas -> obtido igual (OK)
- *   tarefa 3 -> esperado mostrar "Total de candidatos: 4" e "(1 a 4)" no pedido do K -> obtido igual (OK)
- */

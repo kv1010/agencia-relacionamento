@@ -1,15 +1,12 @@
 package tad;
 
-// Lista encadeada generica com sentinela e tail
-// Feita no molde da LEDS<T> do professor
-// Usada para guardar os candidatos (e tambem os nomes lidos pelo gerador)
 public class ListaEncadeada<T> {
     // atributos
-    private Celula head; // sentinela (nao guarda item de verdade)
-    private Celula tail; // aponta para a ultima celula
+    private Celula head; 
+    private Celula tail; 
     private int size;
 
-    // celula da lista (simplesmente encadeada)
+    // celula da lista
     private class Celula {
         T item;
         Celula prox;
@@ -27,11 +24,6 @@ public class ListaEncadeada<T> {
         size = 0;
     }
 
-    /*
-     * COMMIT 01
-     * Título: Cria estrutura da ListaEncadeada com célula e sentinela
-     */
-
     // insere no fim da lista
     public void add(T item) {
         if (item != null) {
@@ -40,11 +32,6 @@ public class ListaEncadeada<T> {
             size++;
         }
     }
-
-    /*
-     * COMMIT 02
-     * Título: Implementa inserção no fim (add) na ListaEncadeada
-     */
 
     // retorna o item que esta na posicao i (comecando em 0)
     public T get(int i) {
@@ -59,11 +46,6 @@ public class ListaEncadeada<T> {
         }
         return atual.item;
     }
-
-    /*
-     * COMMIT 03
-     * Título: Implementa acesso por posição (get) na ListaEncadeada
-     */
 
     // retorna a quantidade de itens
     public int size() {
@@ -82,12 +64,7 @@ public class ListaEncadeada<T> {
         size = 0;
     }
 
-    /*
-     * COMMIT 04
-     * Título: Implementa size, isEmpty e clear na ListaEncadeada
-     */
-
-    // monta uma String com os itens da lista
+    //String com os itens da lista
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[ ");
@@ -101,8 +78,4 @@ public class ListaEncadeada<T> {
         return sb.toString();
     }
 
-    /*
-     * COMMIT 05
-     * Título: Implementa toString na ListaEncadeada
-     */
 }
