@@ -6,10 +6,9 @@ Autores: Kauã (Parte A - pacote tad) e Luiz (Parte B - pacote app)
 ---------------------
 Aplicacao em Java, de linha de comando, que le os cadastros de candidatos de uma
 agencia de relacionamento (arquivo candidatos.txt) e identifica os potenciais
-companheiros de cada candidato. O usuario escolhe as tarefas por um menu.
-
-Todas as estruturas de dados foram implementadas pela dupla (listas simplesmente
-encadeadas com sentinela e tail). Nao ha ArrayList, LinkedList nem vetores de dados.
+companheiros de cada candidato. O usuario escolhe as tarefas por um menu. Tambem e
+possivel cadastrar novos candidatos, listar todos e abrir o perfil de cada um para
+ver e alterar seus dados.
 
 2. REQUISITOS
 -------------
@@ -26,7 +25,7 @@ src/tad/TesteListaEncadeada.java    teste da lista generica
 src/tad/TesteLista.java             teste da lista de identificadores
 src/tad/TesteCandidato.java         teste do TAD Candidato
 src/app/LeitorCandidatos.java       le o candidatos.txt
-src/app/Main.java                   programa principal (menu e as 6 tarefas)
+src/app/Main.java                   programa principal (menu, as 6 tarefas, cadastro e perfil)
 src/app/GeradorCandidatos.java      programa auxiliar que gera o candidatos.txt
 src/app/TesteLeitor.java            teste do leitor
 nomes.txt                           dicionario de nomes usado pelo gerador
@@ -68,30 +67,59 @@ Ao iniciar, o programa informa quantos candidatos foram carregados e mostra o me
     4 - Imprimir candidatos sem nenhum companheiro
     5 - Imprimir candidatos com interesse em uma area
     6 - Imprimir candidatos que residem em um estado
+    7 - Cadastrar um novo candidato
+    8 - Imprimir todos os candidatos
+    9 - Abrir o perfil de um candidato (ver e alterar dados)
     0 - Sair
 
 IMPORTANTE: execute a opcao 1 antes das opcoes 2, 3 e 4. Elas dependem dos pares
-calculados na opcao 1. As opcoes 5 e 6 podem ser usadas a qualquer momento.
+calculados na opcao 1. As opcoes 5 a 9 podem ser usadas a qualquer momento.
+Sempre que um candidato e cadastrado ou alterado, os pares calculados deixam de valer
+e a opcao 1 deve ser executada de novo.
+
+Em todo pedido de informacao o programa mostra antes as opcoes validas (lista de
+candidatos com id, estados cadastrados, codigos das areas, faixa do grau e de K).
 
 7. COMO USAR CADA OPCAO
 -----------------------
-Opcao 1 - Digite o grau de interesse desejado (inteiro maior ou igual a zero, por
+Opcao 1 - Mostra o grau atual e a faixa possivel (0 a 15, a soma de todos os pesos).
+          Digite o grau de interesse desejado (inteiro maior ou igual a zero, por
           exemplo 6). O programa recalcula os potenciais companheiros de todos os
           candidatos. Pode ser repetida com outro grau a qualquer momento.
 
-Opcao 2 - Digite o id do candidato (a posicao dele no arquivo, de 0 ate N-1).
-          O programa imprime o numero de potenciais companheiros e seus nomes.
+Opcao 2 - O programa lista id e nome de todos os candidatos; digite o id do candidato
+          (de 0 ate N-1). Imprime o numero de potenciais companheiros e seus nomes.
 
-Opcao 3 - Digite K. O programa imprime os K candidatos com mais companheiros. Em caso
-          de empate vence o menor id. Se K for maior que o total, imprime todos.
+Opcao 3 - Digite K (de 1 ate o total de candidatos, que e mostrado). O programa
+          imprime os K candidatos com mais companheiros. Em caso de empate vence o
+          menor id. Se K for maior que o total, imprime todos.
 
 Opcao 4 - Nao pede dados. Imprime id e nome dos candidatos sem nenhum companheiro.
 
-Opcao 5 - Digite o codigo da area (1 a 8). Imprime id e nome dos candidatos que tem
-          interesse nela.
+Opcao 5 - Digite o codigo da area (1 a 8, listados na tela). Imprime id e nome dos
+          candidatos que tem interesse nela.
 
-Opcao 6 - Digite a sigla do estado (maiusculas ou minusculas). Imprime id e nome dos
-          candidatos que residem nele.
+Opcao 6 - O programa mostra os estados cadastrados; digite a sigla do estado
+          (maiusculas ou minusculas). Imprime id e nome dos candidatos que residem nele.
+
+Opcao 7 - Cadastra um novo candidato. Pede nome, estado, sexo (F/M), sexo do potencial
+          companheiro (F/M/I) e areas de interesse (codigos separados por espaco).
+          Antes de pedir o estado, mostra os estados cadastrados. Se a sigla digitada
+          ainda nao existe, o programa avisa, cadastra o estado junto com o candidato
+          e mostra a lista de estados atualizada. O candidato recebe o proximo id e fica
+          so na memoria (o candidatos.txt nao e alterado).
+
+Opcao 8 - Imprime todos os candidatos (id, nome, estado, sexos e areas).
+
+Opcao 9 - Lista id e nome dos candidatos e pede o id. Abre o perfil do candidato com
+          todos os dados e um menu proprio:
+              1 - Alterar dados do candidato
+              2 - Ver potenciais companheiros
+              0 - Voltar ao menu principal
+          Na alteracao o menu continua aberto depois de cada campo alterado (nome,
+          estado, sexo, sexo do potencial companheiro, areas de interesse), mostrando
+          os dados atualizados, ate o usuario escolher 0 (concluir alteracoes).
+          Um estado novo digitado na alteracao tambem e cadastrado e listado.
 
 Opcao 0 - Encerra o programa.
 
@@ -176,5 +204,7 @@ indicado em comentario no codigo do teste.
 ---------------
 - O programa le o arquivo pelo caminho informado; se o arquivo nao existir ou estiver
   fora do formato, uma mensagem de erro e exibida e o programa termina.
+- Candidatos cadastrados ou alterados pelo menu valem so ate o programa fechar; o
+  candidatos.txt nao e modificado.
 - Com muitos candidatos a opcao 1 fica mais lenta, pois as listas sao acessadas por
   posicao: com 300 candidatos leva menos de 1 segundo; com 2000, mais de 20 segundos.

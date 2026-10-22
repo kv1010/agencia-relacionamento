@@ -103,3 +103,39 @@ Descrição: Teste da tarefa 2 com o arquivo de exemplo e grau 3: conferência d
 
 Total registrado no dia: 4h30min
 ------------------------------------------------------------------------
+
+DATA: 21/10/2026
+------------------------------------------------------------------------
+
+[1h20min] Codificar módulo 
+Descrição: Implementação do cadastro de novos candidatos, incluindo leitura e validação do nome, estado, sexo, preferência de sexo do companheiro e áreas de interesse, além da geração do identificador e inclusão do candidato na lista do sistema.
+
+[0h45min] Codificar módulo 
+Descrição: Implementação do tratamento dos estados no cadastro e na alteração de candidatos, exibindo os estados já cadastrados e permitindo informar novos estados.
+
+[0h55min] Codificar módulo 
+Descrição: Implementação da opção de imprimir todos os candidatos cadastrados, apresentando identificador, nome, estado, sexo, preferência de sexo e áreas de interesse.
+
+[0h40min] Codificar módulo 
+Descrição: Implementação do menu de perfil do candidato, permitindo consultar seus dados e acessar as opções de alteração de informações e consulta de companheiros.
+
+[1h10min] Codificar módulo 
+Descrição: Correção do menu de alteração de dados para permitir modificar vários campos consecutivamente, mantendo o menu aberto até que o usuário escolha encerrar a operação.
+
+[0h35min] Codificar módulo 
+Descrição: Ajuste da atualização dos dados dos candidatos e da invalidação dos resultados de cálculo de pares após alterações que exigem um novo cálculo.
+
+[0h50min] Diagnosticar e corrigir os problemas encontrados 
+Descrição: Revisão das entradas do sistema, incluindo a listagem dos candidatos antes da solicitação de identificadores, a validação dos valores informados e a apresentação das opções válidas nos menus.
+
+[1h15min] Realizar os testes 
+Descrição: Testes do cadastro de candidatos, incluindo o registro de novos estados, a validação de campos e o tratamento de áreas de interesse inválidas.
+
+[0h55min] Realizar os testes 
+Descrição: Testes do menu de perfil, da alteração de múltiplos campos, da impressão dos candidatos e da permanência no menu até a opção de encerramento.
+
+[0h35min] Realizar os testes 
+Descrição: Testes das consultas de companheiros e da invalidação dos resultados de cálculo de pares após alterações nos dados.
+
+Total estimado: 9h00min
+------------------------------------------------------------------------

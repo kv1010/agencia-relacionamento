@@ -8,9 +8,15 @@ import tad.ListaIdentificadores;
 
 public class Main {
 
+    private static final int GRAU_MAXIMO = 15; //soma de todos os pesos (1+2+1+1+3+2+2+3)
+
     private static Scanner teclado = new Scanner(System.in);
     private static ListaEncadeada<Candidato> candidatos; //todos os candidatos lidos do arquivo
     private static boolean paresCalculados = false; //só vira true depois da tarefa 1
+
+    // ------------------------------------------------------------------
+    // LEITURA DE DADOS (cada leitura mostra ao usuario o que pode digitar)
+    // ------------------------------------------------------------------
 
     // le um numero inteiro do teclado (repete ate o usuario digitar certo)
     private static int lerInteiro(String mensagem) {
@@ -25,42 +31,6 @@ public class Main {
         }
     }
 
-    // imprime id e nome de todos os candidatos, para o usuario saber qual id escolher
-    private static void listarCandidatos() {
-        System.out.println("Candidatos cadastrados (id - nome):");
-        int i = 0;
-        while (i < candidatos.size()) {
-            System.out.println(candidatos.get(i)); //o toString do Candidato imprime "id - nome"
-            i++;
-        }
-        System.out.println();
-    }
-
-    // imprime as siglas dos estados que aparecem no arquivo (sem repetir), para o usuario saber o que digitar
-    private static void listarEstados() {
-        ListaEncadeada<String> estados = new ListaEncadeada<String>();
-        int i = 0;
-        while (i < candidatos.size()) {
-            String estado = candidatos.get(i).getEstado();
-
-            //confere se a sigla ja esta na lista de estados
-            boolean jaTem = false;
-            int j = 0;
-            while (j < estados.size()) {
-                if (estados.get(j).equals(estado)) {
-                    jaTem = true;
-                }
-                j++;
-            }
-
-            if (!jaTem && estado.length() > 0) {
-                estados.add(estado);
-            }
-            i++;
-        }
-        System.out.println("Estados cadastrados: " + estados); //ex: [ MG SP ]
-    }
-
     // le um texto do teclado que nao pode ficar vazio (repete ate o usuario digitar algo)
     private static String lerTexto(String mensagem) {
         while (true) {
@@ -73,11 +43,11 @@ public class Main {
         }
     }
 
-    // le a sigla de um estado (2 letras)
+    // le a sigla de um estado (2 letras); aceita um estado que ainda nao esta cadastrado
     private static String lerEstado(String mensagem) {
         while (true) {
             String sigla = lerTexto(mensagem);
-            if (sigla.length() == 2) {
+            if (sigla.length() == 2 && Character.isLetter(sigla.charAt(0)) && Character.isLetter(sigla.charAt(1))) {
                 return sigla.toUpperCase();
             }
             System.out.println("Sigla invalida, digite 2 letras (ex: MG).");
@@ -105,7 +75,7 @@ public class Main {
     // le as areas de interesse (codigos de 1 a 8 separados por espaco)
     // devolve null se algum codigo for invalido ou se nao informar nenhuma area
     private static ListaIdentificadores lerAreas() {
-        System.out.println("Areas: 1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS 7-GASTRONOMIA 8-CIENCIAS");
+        System.out.println("Areas: " + textoAreas());
         System.out.print("Digite os codigos das areas separados por espaco: ");
         String linha = teclado.nextLine();
 
@@ -135,6 +105,127 @@ public class Main {
         return areas;
     }
 
+    // ------------------------------------------------------------------
+    // LISTAGENS AUXILIARES (mostradas antes de pedir um dado ao usuario)
+    // ------------------------------------------------------------------
+
+    // texto com os codigos das areas
+    private static String textoAreas() {
+        return "1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS 7-GASTRONOMIA 8-CIENCIAS";
+    }
+
+    // devolve o nome de uma area a partir do codigo
+    private static String nomeArea(int area) {
+        switch (area) {
+            case 1:
+                return "ESPORTES";
+            case 2:
+                return "ARTES";
+            case 3:
+                return "MUSICA";
+            case 4:
+                return "CINEMA";
+            case 5:
+                return "TECNOLOGIA";
+            case 6:
+                return "ANIMAIS";
+            case 7:
+                return "GASTRONOMIA";
+            default:
+                return "CIENCIAS";
+        }
+    }
+
+    // monta um texto com o nome das areas de uma lista (ex: ESPORTES, MUSICA)
+    private static String textoNomesAreas(ListaIdentificadores areas) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < areas.size()) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(nomeArea(areas.get(i)));
+            i++;
+        }
+        return sb.toString();
+    }
+
+    // imprime id e nome de todos os candidatos, para o usuario saber qual id escolher
+    private static void listarCandidatos() {
+        System.out.println("Candidatos cadastrados (id - nome):");
+        int i = 0;
+        while (i < candidatos.size()) {
+            System.out.println(candidatos.get(i)); //o toString do Candidato imprime "id - nome"
+            i++;
+        }
+        System.out.println();
+    }
+
+    // confere se algum candidato ja reside na sigla informada
+    private static boolean estadoCadastrado(String sigla) {
+        int i = 0;
+        while (i < candidatos.size()) {
+            if (candidatos.get(i).reside(sigla)) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    // imprime as siglas dos estados que aparecem nos candidatos (sem repetir), para o usuario saber o que digitar
+    private static void listarEstados() {
+        ListaEncadeada<String> estados = new ListaEncadeada<String>();
+        int i = 0;
+        while (i < candidatos.size()) {
+            String estado = candidatos.get(i).getEstado();
+
+            //confere se a sigla ja esta na lista de estados
+            boolean jaTem = false;
+            int j = 0;
+            while (j < estados.size()) {
+                if (estados.get(j).equals(estado)) {
+                    jaTem = true;
+                }
+                j++;
+            }
+
+            if (!jaTem && estado.length() > 0) {
+                estados.add(estado);
+            }
+            i++;
+        }
+        System.out.println("Estados cadastrados: " + estados); //ex: [ MG SP ]
+    }
+
+    // imprime todos os dados de um candidato (usado no perfil e na alteracao)
+    private static void mostrarDados(Candidato c) {
+        System.out.println("Id: " + c.getId());
+        System.out.println("Nome: " + c.getNome());
+        System.out.println("Estado: " + c.getEstado());
+        System.out.println("Sexo: " + c.getSexo());
+        System.out.println("Sexo do potencial companheiro: " + c.getSexoInteresse());
+        System.out.println("Areas de interesse: " + textoNomesAreas(c.getAreas()));
+    }
+
+    // imprime o numero e os nomes dos potenciais companheiros de um candidato
+    private static void imprimirCompanheiros(Candidato u) {
+        ListaIdentificadores lista = u.listaCompanheiros();
+        System.out.println("Candidato: " + u.getNome());
+        System.out.println("Numero de potenciais companheiros: " + u.numeroCompanheiros());
+
+        int i = 0;
+        while (i < lista.size()) {
+            Candidato companheiro = candidatos.get(lista.get(i)); //o id é a posição na lista
+            System.out.println("- " + companheiro);
+            i++;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // MENU PRINCIPAL
+    // ------------------------------------------------------------------
+
     // mostra o menu na tela
     private static void mostrarMenu() {
         System.out.println();
@@ -146,7 +237,8 @@ public class Main {
         System.out.println("5 - Imprimir candidatos com interesse em uma area");
         System.out.println("6 - Imprimir candidatos que residem em um estado");
         System.out.println("7 - Cadastrar um novo candidato");
-        System.out.println("8 - Atualizar os dados de um candidato");
+        System.out.println("8 - Imprimir todos os candidatos");
+        System.out.println("9 - Abrir o perfil de um candidato (ver e alterar dados)");
         System.out.println("0 - Sair");
     }
 
@@ -193,7 +285,10 @@ public class Main {
                     cadastrarCandidato();
                     break;
                 case 8:
-                    atualizarCandidato();
+                    imprimirCandidatos();
+                    break;
+                case 9:
+                    perfilCandidato();
                     break;
                 case 0:
                     System.out.println("Encerrando o programa.");
@@ -204,30 +299,22 @@ public class Main {
         }
     }
 
-    /*
-     * COMMIT 21
-     * Título: Cria a classe Main com leitura do arquivo e menu interativo
-     * (neste commit deixe cada case de tarefa só com um println "Tarefa X ainda não implementada";
-     *  as chamadas tarefa1() a tarefa6() entram uma por vez nos commits 23, 25, 27, 29, 31 e 33)
-     */
-
-    /*
-     * COMMIT 22
-     * Título: Testa o menu da Main: opção inválida, texto no lugar de número e sair
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução do programa com entradas inválidas no menu e saída pela opção 0, conferindo as mensagens na tela.
-     * Relatório de teste:
-     *   arquivo candidatos.txt de exemplo -> esperado "3 candidatos carregados de candidatos.txt" -> obtido igual (OK)
-     *   entrada "abc" no menu -> esperado "Valor invalido, digite um numero inteiro." e o menu de novo -> obtido igual (OK)
-     *   entrada 9 no menu -> esperado "Opcao invalida." -> obtido igual (OK)
-     *   entrada 0 -> esperado "Encerrando o programa." e fim da execução -> obtido igual (OK)
-     */
+    // ------------------------------------------------------------------
+    // TAREFAS 1 A 6
+    // ------------------------------------------------------------------
 
     // Tarefa 1: le o grau de interesse e recalcula os companheiros de todos
     private static void tarefa1() {
-        int grau = lerInteiro("Digite o grau de interesse desejado: ");
+        int atual = Candidato.getGrauMinimo();
+        System.out.println("Grau de interesse atual: " + atual);
+        System.out.println("O grau em comum vai de 0 ate " + GRAU_MAXIMO + " (soma dos pesos de todas as areas).");
+        int grau = lerInteiro("Digite o grau de interesse desejado (0 a " + GRAU_MAXIMO + "): ");
         if (grau < 0) {
             System.out.println("O grau de interesse nao pode ser negativo.");
             return;
+        }
+        if (grau > GRAU_MAXIMO) {
+            System.out.println("Aviso: nenhum par tem grau em comum maior que " + GRAU_MAXIMO + ", entao nao havera companheiros.");
         }
         Candidato.setGrauMinimo(grau);
 
@@ -251,26 +338,14 @@ public class Main {
         System.out.println("Grau de interesse " + grau + " definido e pares calculados.");
     }
 
-    /*
-     * COMMIT 23
-     * Título: Implementa tarefa 1: definição do grau de interesse e cálculo dos pares
-     */
-
-    /*
-     * COMMIT 24
-     * Título: Testa a tarefa 1: grau válido, negativo e texto
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 1 do menu com grau válido, negativo e texto, e conferência do efeito na tarefa 2.
-     * Relatório de teste:
-     *   grau 3 -> esperado "Grau de interesse 3 definido e pares calculados." -> obtido igual (OK)
-     *   grau -5 -> esperado "O grau de interesse nao pode ser negativo." e voltar ao menu -> obtido igual (OK)
-     *   grau "xyz" -> esperado "Valor invalido, digite um numero inteiro." e pedir de novo -> obtido igual (OK)
-     *   tarefa 2 antes da tarefa 1 -> esperado "Defina o grau de interesse na tarefa 1 antes." -> obtido igual (OK)
-     */
-
     // Tarefa 2: imprime o numero e os nomes dos companheiros de um candidato
     private static void tarefa2() {
         if (!paresCalculados) {
             System.out.println("Defina o grau de interesse na tarefa 1 antes.");
+            return;
+        }
+        if (candidatos.isEmpty()) {
+            System.out.println("Nenhum candidato cadastrado.");
             return;
         }
 
@@ -282,35 +357,8 @@ public class Main {
             System.out.println("Id invalido.");
             return;
         }
-
-        Candidato u = candidatos.get(id);
-        ListaIdentificadores lista = u.listaCompanheiros();
-        System.out.println("Candidato: " + u.getNome());
-        System.out.println("Numero de potenciais companheiros: " + u.numeroCompanheiros());
-
-        int i = 0;
-        while (i < lista.size()) {
-            Candidato companheiro = candidatos.get(lista.get(i)); //o id é a posição na lista
-            System.out.println("- " + companheiro.getNome());
-            i++;
-        }
+        imprimirCompanheiros(candidatos.get(id));
     }
-
-    /*
-     * COMMIT 25
-     * Título: Implementa tarefa 2: número e nomes dos potenciais companheiros
-     */
-
-    /*
-     * COMMIT 26
-     * Título: Testa a tarefa 2: candidato com e sem companheiros e id inválido
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 2 com grau 3 no arquivo de exemplo, para candidatos com companheiro, sem companheiro e com id fora do intervalo.
-     * Relatório de teste (grau 3):
-     *   id 0 (Ana) -> esperado 1 companheiro: Bruno Lima -> obtido igual (OK)
-     *   id 1 (Bruno) -> esperado 1 companheiro: Ana Souza (relação simétrica) -> obtido igual (OK)
-     *   id 2 (Carla, mora em SP) -> esperado 0 companheiros -> obtido igual (OK)
-     *   id 9 -> esperado "Id invalido." -> obtido igual (OK)
-     */
 
     // Tarefa 3: imprime os K candidatos com mais companheiros
     private static void tarefa3() {
@@ -318,7 +366,8 @@ public class Main {
             System.out.println("Defina o grau de interesse na tarefa 1 antes.");
             return;
         }
-        int k = lerInteiro("Digite o valor de K: ");
+        System.out.println("Total de candidatos: " + candidatos.size());
+        int k = lerInteiro("Digite o valor de K (1 a " + candidatos.size() + "): ");
         if (k <= 0) {
             System.out.println("K precisa ser maior que zero.");
             return;
@@ -351,22 +400,6 @@ public class Main {
         }
     }
 
-    /*
-     * COMMIT 27
-     * Título: Implementa tarefa 3: K candidatos com mais companheiros
-     */
-
-    /*
-     * COMMIT 28
-     * Título: Testa a tarefa 3: desempate pelo menor id, K maior que o total e K inválido
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 3 com grau 3 no arquivo de exemplo (Ana e Bruno empatados com 1 companheiro, Carla com 0), variando o valor de K.
-     * Relatório de teste (grau 3):
-     *   K = 1 -> esperado Ana (empate com Bruno, entra o menor id) -> obtido "1o: 0 - Ana Souza (1 companheiros)" (OK)
-     *   K = 2 -> esperado Ana e Bruno -> obtido igual (OK)
-     *   K = 10 (maior que o total) -> esperado os 3 candidatos, Carla por último -> obtido igual (OK)
-     *   K = 0 -> esperado "K precisa ser maior que zero." -> obtido igual (OK)
-     */
-
     // Tarefa 4: imprime os candidatos sem nenhum companheiro
     private static void tarefa4() {
         if (!paresCalculados) {
@@ -388,23 +421,9 @@ public class Main {
         }
     }
 
-    /*
-     * COMMIT 29
-     * Título: Implementa tarefa 4: candidatos sem companheiros
-     */
-
-    /*
-     * COMMIT 30
-     * Título: Testa a tarefa 4: candidatos sem companheiros com graus diferentes
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 4 no arquivo de exemplo com grau 3 e com grau 6, conferindo que um grau maior elimina os pares.
-     * Relatório de teste:
-     *   grau 3 -> esperado só a Carla (mora em SP) -> obtido "2 - Carla Dias" (OK)
-     *   grau 6 (maior que o grau em comum 4 de Ana e Bruno) -> esperado os 3 candidatos -> obtido igual (OK)
-     */
-
     // Tarefa 5: imprime os candidatos com interesse em uma area
     private static void tarefa5() {
-        System.out.println("Areas: 1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS 7-GASTRONOMIA 8-CIENCIAS");
+        System.out.println("Areas: " + textoAreas());
         int area = lerInteiro("Digite o codigo da area (1 a 8): ");
         if (area < 1 || area > 8) {
             System.out.println("Area invalida.");
@@ -425,25 +444,9 @@ public class Main {
         }
     }
 
-    /*
-     * COMMIT 31
-     * Título: Implementa tarefa 5: candidatos com interesse em uma área
-     */
-
-    /*
-     * COMMIT 32
-     * Título: Testa a tarefa 5: área com candidatos, sem candidatos e inválida
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 5 no arquivo de exemplo (Ana: 1, 3, 5; Bruno: 3, 5, 2; Carla: 2) com várias áreas.
-     * Relatório de teste:
-     *   área 3 -> esperado Ana e Bruno -> obtido "0 - Ana Souza" e "1 - Bruno Lima" (OK)
-     *   área 2 -> esperado Bruno e Carla -> obtido "1 - Bruno Lima" e "2 - Carla Dias" (OK)
-     *   área 8 -> esperado "Nenhum candidato com interesse nessa area." -> obtido igual (OK)
-     *   área 9 -> esperado "Area invalida." -> obtido igual (OK)
-     */
-
     // Tarefa 6: imprime os candidatos que moram em um estado
     private static void tarefa6() {
-        listarEstados(); //mostra os estados do arquivo antes de pedir a sigla
+        listarEstados(); //mostra os estados cadastrados antes de pedir a sigla
         System.out.print("Digite a sigla do estado: ");
         String sigla = teclado.nextLine().trim();
         if (sigla.length() == 0) {
@@ -465,31 +468,30 @@ public class Main {
         }
     }
 
-    /*
-     * COMMIT 33
-     * Título: Implementa tarefa 6: candidatos que residem em um estado
-     */
-
-    /*
-     * COMMIT 34
-     * Título: Testa a tarefa 6: siglas em maiúscula, minúscula e estado sem candidatos
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 6 no arquivo de exemplo (Ana e Bruno em MG, Carla em SP), conferindo que maiúsculas e minúsculas não fazem diferença.
-     * Relatório de teste:
-     *   sigla "mg" -> esperado Ana e Bruno -> obtido "0 - Ana Souza" e "1 - Bruno Lima" (OK)
-     *   sigla "SP" -> esperado Carla -> obtido "2 - Carla Dias" (OK)
-     *   sigla "rj" -> esperado "Nenhum candidato reside nesse estado." -> obtido igual (OK)
-     */
+    // ------------------------------------------------------------------
+    // CADASTRO, LISTAGEM E PERFIL DOS CANDIDATOS
+    // ------------------------------------------------------------------
 
     // Opcao 7: cadastra um novo candidato (fica so na memoria, o candidatos.txt nao e alterado)
     private static void cadastrarCandidato() {
+        System.out.println("--- Cadastro de novo candidato ---");
         String nome = lerTexto("Nome: ");
-        String estado = lerEstado("Sigla do estado (ex: MG): ");
+
+        //mostra os estados que ja existem; se a sigla digitada for nova, ela passa a ser cadastrada
+        listarEstados();
+        String estado = lerEstado("Sigla do estado (uma da lista ou um estado novo): ");
+        boolean estadoNovo = !estadoCadastrado(estado);
+        if (estadoNovo) {
+            System.out.println("O estado " + estado + " ainda nao estava cadastrado e sera cadastrado com este candidato.");
+        }
+
         char sexo = lerSexo("Sexo (F/M): ", false);
-        char sexoInteresse = lerSexo("Sexo do potencial companheiro (F/M/I): ", true);
+        char sexoInteresse = lerSexo("Sexo do potencial companheiro (F/M/I, I = qualquer sexo): ", true);
+
+        //repete ate o usuario informar areas validas
         ListaIdentificadores areas = lerAreas();
-        if (areas == null) {
-            System.out.println("Cadastro cancelado.");
-            return;
+        while (areas == null) {
+            areas = lerAreas();
         }
 
         //o id e a posicao na lista, entao o novo candidato recebe o proximo numero
@@ -498,11 +500,34 @@ public class Main {
 
         paresCalculados = false; //os pares antigos nao valem mais
         System.out.println("Candidato cadastrado: " + novo);
+        if (estadoNovo) {
+            listarEstados(); //mostra a lista ja com o estado novo
+        }
         System.out.println("Execute a opcao 1 novamente para recalcular os pares.");
     }
 
-    // Opcao 8: atualiza os dados de um candidato ja cadastrado
-    private static void atualizarCandidato() {
+    // Opcao 8: imprime todos os candidatos com os dados principais
+    private static void imprimirCandidatos() {
+        if (candidatos.isEmpty()) {
+            System.out.println("Nenhum candidato cadastrado.");
+            return;
+        }
+        System.out.println("Candidatos cadastrados (" + candidatos.size() + "):");
+        int i = 0;
+        while (i < candidatos.size()) {
+            Candidato c = candidatos.get(i);
+            System.out.println(c + " | " + c.getEstado() + " | sexo " + c.getSexo()
+                    + " | procura " + c.getSexoInteresse() + " | areas: " + textoNomesAreas(c.getAreas()));
+            i++;
+        }
+    }
+
+    // Opcao 9: lista os candidatos, pede o id e abre o menu do perfil dele
+    private static void perfilCandidato() {
+        if (candidatos.isEmpty()) {
+            System.out.println("Nenhum candidato cadastrado.");
+            return;
+        }
         listarCandidatos();
         int id = lerInteiro("Digite o id do candidato (0 a " + (candidatos.size() - 1) + "): ");
         if (id < 0 || id >= candidatos.size()) {
@@ -511,65 +536,139 @@ public class Main {
         }
         Candidato c = candidatos.get(id);
 
-        System.out.println("Dados atuais: " + c + " | estado " + c.getEstado() + " | sexo " + c.getSexo()
-                + " | procura " + c.getSexoInteresse() + " | areas " + c.getAreas());
-        System.out.println("1 - Nome");
-        System.out.println("2 - Estado");
-        System.out.println("3 - Sexo");
-        System.out.println("4 - Sexo do potencial companheiro");
-        System.out.println("5 - Areas de interesse");
-        System.out.println("0 - Cancelar");
-        int campo = lerInteiro("Qual campo deseja alterar? ");
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println();
+            System.out.println("===== PERFIL DO CANDIDATO =====");
+            mostrarDados(c);
+            if (paresCalculados) {
+                System.out.println("Potenciais companheiros: " + c.numeroCompanheiros() + " (grau " + Candidato.getGrauMinimo() + ")");
+            } else {
+                System.out.println("Potenciais companheiros: ainda nao calculados (use a opcao 1 do menu principal)");
+            }
+            System.out.println("-----------------------------");
+            System.out.println("1 - Alterar dados do candidato");
+            System.out.println("2 - Ver potenciais companheiros");
+            System.out.println("0 - Voltar ao menu principal");
+            opcao = lerInteiro("Escolha uma opcao do perfil: ");
 
-        switch (campo) {
-            case 1:
-                c.setNome(lerTexto("Novo nome: "));
-                break;
-            case 2:
-                c.setEstado(lerEstado("Nova sigla do estado: "));
-                break;
-            case 3:
-                c.setSexo(lerSexo("Novo sexo (F/M): ", false));
-                break;
-            case 4:
-                c.setSexoInteresse(lerSexo("Novo sexo do potencial companheiro (F/M/I): ", true));
-                break;
-            case 5:
-                ListaIdentificadores novasAreas = lerAreas();
-                if (novasAreas == null) {
-                    System.out.println("Atualizacao cancelada.");
-                    return;
-                }
-                c.setAreas(novasAreas);
-                break;
-            case 0:
-                System.out.println("Atualizacao cancelada.");
-                return;
-            default:
-                System.out.println("Opcao invalida.");
-                return;
+            switch (opcao) {
+                case 1:
+                    alterarDados(c);
+                    break;
+                case 2:
+                    if (paresCalculados) {
+                        imprimirCompanheiros(c);
+                    } else {
+                        System.out.println("Defina o grau de interesse na tarefa 1 antes.");
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
+            }
         }
-
-        paresCalculados = false; //os pares antigos nao valem mais
-        System.out.println("Candidato atualizado: " + c + " | estado " + c.getEstado() + " | sexo " + c.getSexo()
-                + " | procura " + c.getSexoInteresse() + " | areas " + c.getAreas());
-        System.out.println("Execute a opcao 1 novamente para recalcular os pares.");
     }
 
-    /*
-     * COMMIT 40
-     * Título: Adiciona opções 7 e 8 no menu: cadastrar e atualizar candidato usando o construtor e os setters do TAD
-     */
+    // menu de alteracao: fica aberto ate o usuario escolher 0 (concluir), podendo alterar varios campos
+    private static void alterarDados(Candidato c) {
+        boolean alterou = false;
 
-    /*
-     * COMMIT 39
-     * Título: Testa a aplicação completa com arquivo de exemplo e com arquivo gerado
-     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Teste de integração do menu com as 6 tarefas no candidatos.txt de exemplo e em um arquivo de 40 candidatos gerado pelo GeradorCandidatos, conferindo os resultados com um cálculo feito à parte.
-     * Relatório de teste:
-     *   exemplo, grau 3 -> esperado Ana e Bruno companheiros e Carla sem companheiro -> obtido igual (OK)
-     *   gerado (40 candidatos), grau 4, tarefa 3 com K = 3 -> esperado ids 29 e 34 (11 companheiros, empate pelo menor id) e depois o id 1 (8 companheiros) -> obtido igual ao cálculo conferido à parte (OK)
-     *   gerado, grau 4, tarefa 4 -> esperado 11 candidatos sem companheiro (ids 2, 3, 5, 7, 14, 19, 22, 25, 31, 32 e 39) -> obtido igual (OK)
-     *   relação simétrica (se A é companheiro de B, B é de A) conferida no arquivo gerado -> OK
-     *   tarefas 5 e 6 no arquivo gerado -> esperado só candidatos da área/estado pedido -> obtido igual (OK)
-     */
+        int campo = -1;
+        while (campo != 0) {
+            System.out.println();
+            System.out.println("--- Alterar dados ---");
+            mostrarDados(c);
+            System.out.println("1 - Nome");
+            System.out.println("2 - Estado");
+            System.out.println("3 - Sexo");
+            System.out.println("4 - Sexo do potencial companheiro");
+            System.out.println("5 - Areas de interesse");
+            System.out.println("0 - Concluir alteracoes");
+            campo = lerInteiro("Qual campo deseja alterar? ");
+
+            switch (campo) {
+                case 1:
+                    c.setNome(lerTexto("Novo nome: "));
+                    alterou = true;
+                    System.out.println("Nome atualizado.");
+                    break;
+                case 2:
+                    listarEstados();
+                    String estado = lerEstado("Nova sigla do estado (uma da lista ou um estado novo): ");
+                    boolean estadoNovo = !estadoCadastrado(estado);
+                    if (estadoNovo) {
+                        System.out.println("O estado " + estado + " ainda nao estava cadastrado e sera cadastrado com esta alteracao.");
+                    }
+                    c.setEstado(estado);
+                    alterou = true;
+                    System.out.println("Estado atualizado.");
+                    if (estadoNovo) {
+                        listarEstados(); //mostra a lista ja com o estado novo
+                    }
+                    break;
+                case 3:
+                    c.setSexo(lerSexo("Novo sexo (F/M): ", false));
+                    alterou = true;
+                    System.out.println("Sexo atualizado.");
+                    break;
+                case 4:
+                    c.setSexoInteresse(lerSexo("Novo sexo do potencial companheiro (F/M/I, I = qualquer sexo): ", true));
+                    alterou = true;
+                    System.out.println("Sexo do potencial companheiro atualizado.");
+                    break;
+                case 5:
+                    ListaIdentificadores novasAreas = lerAreas();
+                    if (novasAreas == null) {
+                        System.out.println("Areas nao alteradas.");
+                    } else {
+                        c.setAreas(novasAreas);
+                        alterou = true;
+                        System.out.println("Areas atualizadas.");
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
+            }
+        }
+
+        if (alterou) {
+            paresCalculados = false; //os pares antigos nao valem mais
+            System.out.println("Alteracoes concluidas: " + c);
+            System.out.println("Execute a opcao 1 novamente para recalcular os pares.");
+        } else {
+            System.out.println("Nenhuma alteracao feita.");
+        }
+    }
 }
+
+/*
+ * COMMIT 41
+ * Título: Mostra os estados cadastrados e registra estado novo no cadastro e na alteração
+ *
+ * COMMIT 42
+ * Título: Torna a alteração de dados um menu em laço que só termina na opção 0 (concluir)
+ *
+ * COMMIT 43
+ * Título: Adiciona a opção 8 (imprimir todos os candidatos) e a opção 9 (perfil do candidato com menu)
+ * (a antiga opção 8 "Atualizar os dados" passou para dentro do perfil)
+ *
+ * COMMIT 44
+ * Título: Mostra a faixa de valores válidos nos pedidos de grau (0 a 15) e de K (1 a total)
+ *
+ * COMMIT 45
+ * Título: Testa cadastro com estado novo, perfil, alteração em laço, impressão e top K
+ * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução do menu com o arquivo de exemplo: perfil do candidato 0, alteração de estado (novo), sexo (inválido e válido) e sexo de interesse numa mesma sessão, cadastro de candidato com estado novo e área inválida, opção 8 e tarefa 3.
+ * Relatório de teste:
+ *   opção 9 com id 0 -> esperado lista de candidatos antes do pedido e perfil com áreas por nome -> obtido igual (OK)
+ *   alterar estado para "rj" (novo) -> esperado aviso de estado novo e "Estados cadastrados: [ RJ MG SP ]" -> obtido igual (OK)
+ *   sexo "x" -> esperado "Valor invalido, digite F ou M." e pedir de novo -> obtido igual (OK)
+ *   alterar vários campos -> esperado o menu de alteração continuar aberto até a opção 0 -> obtido igual (OK)
+ *   após alterar -> esperado pares invalidados e "Defina o grau de interesse na tarefa 1 antes." no perfil -> obtido igual (OK)
+ *   cadastro com estado "ba" e área 9 -> esperado aviso de estado novo, pedir as áreas de novo e lista com BA -> obtido "[ RJ MG SP BA ]" (OK)
+ *   opção 8 -> esperado os 4 candidatos com estado, sexos e áreas -> obtido igual (OK)
+ *   tarefa 3 -> esperado mostrar "Total de candidatos: 4" e "(1 a 4)" no pedido do K -> obtido igual (OK)
+ */
