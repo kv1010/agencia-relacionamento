@@ -92,5 +92,14 @@ Descrição: Teste do GeradorCandidatos com 40 candidatos: conferência do forma
 [0h30min] Realizar os testes
 Descrição: Teste de integração do menu com as 6 tarefas no arquivo de exemplo e em um arquivo gerado de 40 candidatos, com grau 4, conferindo top K, candidatos sem companheiros e simetria com um cálculo feito à parte.
 
-Total registrado no dia: 3h50min
+[0h10min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Verificação das tarefas do menu que pedem uma escolha ao usuário. Na tarefa 2 o id do candidato era pedido sem mostrar quem eram os candidatos, o que dificultava a escolha correta.
+
+[0h15min] Codificar módulo
+Descrição: Criação do método listarCandidatos na Main, que imprime id e nome de todos os candidatos, e chamada dele na tarefa 2 antes de pedir o id.
+
+[0h15min] Realizar os testes
+Descrição: Teste da tarefa 2 com o arquivo de exemplo e grau 3: conferência de que a lista com id e nome (0 - Ana Souza, 1 - Bruno Lima, 2 - Carla Dias) aparece antes do pedido do id, do resultado para um id válido e da mensagem para um id inválido. Resultados obtidos iguais aos esperados.
+
+Total registrado no dia: 4h30min
 ------------------------------------------------------------------------

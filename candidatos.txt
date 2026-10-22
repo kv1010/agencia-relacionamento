@@ -1,26 +1,303 @@
-3
+30
 ****
-Ana Souza
+Isabela Ramos
+SP
+F
+I
+8
+4
+5
+7
+6
+1
+3
+8
+2
+****
+Samuel Araujo
+SP
+M
+F
+8
+7
+6
+1
+3
+4
+2
+8
+5
+****
+Felipe Costa
 MG
+F
+F
+2
+2
+5
+****
+Henrique Melo
+SP
 F
 M
 3
 1
+4
+7
+****
+Pedro Cardoso
+SP
+F
+I
+4
+5
+4
+2
+3
+****
+Daniel Rocha
+RJ
+F
+M
+5
+6
+1
+2
+3
+8
+****
+Pedro Cardoso
+SP
+M
+M
+3
+4
+2
+3
+****
+Samuel Araujo
+SP
+F
+I
+5
+7
 3
 5
+8
+6
+****
+Felipe Costa
+RJ
+M
+F
+2
+3
+1
+****
+Bruno Lima
+SP
+M
+F
+4
+3
+1
+7
+6
+****
+Eduarda Alves
+SP
+F
+F
+1
+6
+****
+Lucas Ferreira
+SP
+F
+F
+6
+2
+6
+4
+5
+7
+1
+****
+Eduarda Alves
+SP
+M
+M
+6
+2
+3
+5
+8
+7
+6
+****
+Carla Dias
+RJ
+F
+F
+4
+8
+1
+7
+4
+****
+Felipe Costa
+MG
+M
+I
+8
+3
+6
+2
+8
+1
+4
+5
+7
+****
+Gabriela Nunes
+SP
+F
+I
+7
+2
+3
+5
+8
+1
+6
+7
+****
+Joao Pereira
+MG
+F
+M
+6
+6
+4
+8
+7
+1
+3
+****
+Olivia Teixeira
+RJ
+F
+F
+4
+4
+1
+7
+2
+****
+Pedro Cardoso
+MG
+M
+I
+4
+4
+1
+8
+3
+****
+Ana Souza
+SP
+M
+M
+7
+3
+8
+2
+7
+4
+1
+6
+****
+Karen Martins
+MG
+F
+I
+6
+1
+2
+5
+6
+8
+7
+****
+Henrique Melo
+RJ
+F
+M
+2
+2
+3
+****
+Daniel Rocha
+MG
+F
+F
+3
+4
+8
+7
+****
+Eduarda Alves
+SP
+F
+M
+3
+5
+6
+2
 ****
 Bruno Lima
 MG
 M
 F
-3
-3
+1
+4
+****
+Eduarda Alves
+MG
+M
+I
 5
 2
+3
+5
+6
+7
 ****
-Carla Dias
-SP
+Samuel Araujo
+RJ
 F
-I
+M
 1
 2
+****
+Karen Martins
+SP
+M
+I
+1
+8
+****
+Felipe Costa
+MG
+M
+I
+1
+4
+****
+Daniel Rocha
+SP
+F
+F
+2
+2
+8
