@@ -86,6 +86,24 @@ public class Main {
         }
     }
 
+    /*
+     * COMMIT 21
+     * Título: Cria a classe Main com leitura do arquivo e menu interativo
+     * (neste commit deixe cada case de tarefa só com um println "Tarefa X ainda não implementada";
+     *  as chamadas tarefa1() a tarefa6() entram uma por vez nos commits 23, 25, 27, 29, 31 e 33)
+     */
+
+    /*
+     * COMMIT 22
+     * Título: Testa o menu da Main: opção inválida, texto no lugar de número e sair
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução do programa com entradas inválidas no menu e saída pela opção 0, conferindo as mensagens na tela.
+     * Relatório de teste:
+     *   arquivo candidatos.txt de exemplo -> esperado "3 candidatos carregados de candidatos.txt" -> obtido igual (OK)
+     *   entrada "abc" no menu -> esperado "Valor invalido, digite um numero inteiro." e o menu de novo -> obtido igual (OK)
+     *   entrada 9 no menu -> esperado "Opcao invalida." -> obtido igual (OK)
+     *   entrada 0 -> esperado "Encerrando o programa." e fim da execução -> obtido igual (OK)
+     */
+
     // Tarefa 1: le o grau de interesse e recalcula os companheiros de todos
     private static void tarefa1() {
         int grau = lerInteiro("Digite o grau de interesse desejado: ");
@@ -115,6 +133,22 @@ public class Main {
         System.out.println("Grau de interesse " + grau + " definido e pares calculados.");
     }
 
+    /*
+     * COMMIT 23
+     * Título: Implementa tarefa 1: definição do grau de interesse e cálculo dos pares
+     */
+
+    /*
+     * COMMIT 24
+     * Título: Testa a tarefa 1: grau válido, negativo e texto
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 1 do menu com grau válido, negativo e texto, e conferência do efeito na tarefa 2.
+     * Relatório de teste:
+     *   grau 3 -> esperado "Grau de interesse 3 definido e pares calculados." -> obtido igual (OK)
+     *   grau -5 -> esperado "O grau de interesse nao pode ser negativo." e voltar ao menu -> obtido igual (OK)
+     *   grau "xyz" -> esperado "Valor invalido, digite um numero inteiro." e pedir de novo -> obtido igual (OK)
+     *   tarefa 2 antes da tarefa 1 -> esperado "Defina o grau de interesse na tarefa 1 antes." -> obtido igual (OK)
+     */
+
     // Tarefa 2: imprime o numero e os nomes dos companheiros de um candidato
     private static void tarefa2() {
         if (!paresCalculados) {
@@ -140,6 +174,22 @@ public class Main {
         }
     }
 
+    /*
+     * COMMIT 25
+     * Título: Implementa tarefa 2: número e nomes dos potenciais companheiros
+     */
+
+    /*
+     * COMMIT 26
+     * Título: Testa a tarefa 2: candidato com e sem companheiros e id inválido
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 2 com grau 3 no arquivo de exemplo, para candidatos com companheiro, sem companheiro e com id fora do intervalo.
+     * Relatório de teste (grau 3):
+     *   id 0 (Ana) -> esperado 1 companheiro: Bruno Lima -> obtido igual (OK)
+     *   id 1 (Bruno) -> esperado 1 companheiro: Ana Souza (relação simétrica) -> obtido igual (OK)
+     *   id 2 (Carla, mora em SP) -> esperado 0 companheiros -> obtido igual (OK)
+     *   id 9 -> esperado "Id invalido." -> obtido igual (OK)
+     */
+
     // Tarefa 3: imprime os K candidatos com mais companheiros
     private static void tarefa3() {
         if (!paresCalculados) {
@@ -155,13 +205,14 @@ public class Main {
             k = candidatos.size(); //se K for maior que o total, imprime todos
         }
 
-        //guarda os ids que ja foram impressos
+        //guarda os ids que ja foram impressos (sem usar vetor)
         ListaIdentificadores jaImpressos = new ListaIdentificadores();
 
         for (int posicao = 1; posicao <= k; posicao++) {
             Candidato melhor = null;
 
             //procura o candidato com mais companheiros que ainda nao foi impresso
+            //como a lista esta em ordem de id, usar > garante que no empate fica o menor id
             int i = 0;
             while (i < candidatos.size()) {
                 Candidato atual = candidatos.get(i);
@@ -177,6 +228,22 @@ public class Main {
             System.out.println(posicao + "o: " + melhor + " (" + melhor.numeroCompanheiros() + " companheiros)");
         }
     }
+
+    /*
+     * COMMIT 27
+     * Título: Implementa tarefa 3: K candidatos com mais companheiros
+     */
+
+    /*
+     * COMMIT 28
+     * Título: Testa a tarefa 3: desempate pelo menor id, K maior que o total e K inválido
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 3 com grau 3 no arquivo de exemplo (Ana e Bruno empatados com 1 companheiro, Carla com 0), variando o valor de K.
+     * Relatório de teste (grau 3):
+     *   K = 1 -> esperado Ana (empate com Bruno, entra o menor id) -> obtido "1o: 0 - Ana Souza (1 companheiros)" (OK)
+     *   K = 2 -> esperado Ana e Bruno -> obtido igual (OK)
+     *   K = 10 (maior que o total) -> esperado os 3 candidatos, Carla por último -> obtido igual (OK)
+     *   K = 0 -> esperado "K precisa ser maior que zero." -> obtido igual (OK)
+     */
 
     // Tarefa 4: imprime os candidatos sem nenhum companheiro
     private static void tarefa4() {
@@ -198,6 +265,20 @@ public class Main {
             System.out.println("Todos os candidatos tem pelo menos um companheiro.");
         }
     }
+
+    /*
+     * COMMIT 29
+     * Título: Implementa tarefa 4: candidatos sem companheiros
+     */
+
+    /*
+     * COMMIT 30
+     * Título: Testa a tarefa 4: candidatos sem companheiros com graus diferentes
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 4 no arquivo de exemplo com grau 3 e com grau 6, conferindo que um grau maior elimina os pares.
+     * Relatório de teste:
+     *   grau 3 -> esperado só a Carla (mora em SP) -> obtido "2 - Carla Dias" (OK)
+     *   grau 6 (maior que o grau em comum 4 de Ana e Bruno) -> esperado os 3 candidatos -> obtido igual (OK)
+     */
 
     // Tarefa 5: imprime os candidatos com interesse em uma area
     private static void tarefa5() {
@@ -222,6 +303,22 @@ public class Main {
         }
     }
 
+    /*
+     * COMMIT 31
+     * Título: Implementa tarefa 5: candidatos com interesse em uma área
+     */
+
+    /*
+     * COMMIT 32
+     * Título: Testa a tarefa 5: área com candidatos, sem candidatos e inválida
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 5 no arquivo de exemplo (Ana: 1, 3, 5; Bruno: 3, 5, 2; Carla: 2) com várias áreas.
+     * Relatório de teste:
+     *   área 3 -> esperado Ana e Bruno -> obtido "0 - Ana Souza" e "1 - Bruno Lima" (OK)
+     *   área 2 -> esperado Bruno e Carla -> obtido "1 - Bruno Lima" e "2 - Carla Dias" (OK)
+     *   área 8 -> esperado "Nenhum candidato com interesse nessa area." -> obtido igual (OK)
+     *   área 9 -> esperado "Area invalida." -> obtido igual (OK)
+     */
+
     // Tarefa 6: imprime os candidatos que moram em um estado
     private static void tarefa6() {
         System.out.print("Digite a sigla do estado: ");
@@ -244,4 +341,31 @@ public class Main {
             System.out.println("Nenhum candidato reside nesse estado.");
         }
     }
+
+    /*
+     * COMMIT 33
+     * Título: Implementa tarefa 6: candidatos que residem em um estado
+     */
+
+    /*
+     * COMMIT 34
+     * Título: Testa a tarefa 6: siglas em maiúscula, minúscula e estado sem candidatos
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Execução da opção 6 no arquivo de exemplo (Ana e Bruno em MG, Carla em SP), conferindo que maiúsculas e minúsculas não fazem diferença.
+     * Relatório de teste:
+     *   sigla "mg" -> esperado Ana e Bruno -> obtido "0 - Ana Souza" e "1 - Bruno Lima" (OK)
+     *   sigla "SP" -> esperado Carla -> obtido "2 - Carla Dias" (OK)
+     *   sigla "rj" -> esperado "Nenhum candidato reside nesse estado." -> obtido igual (OK)
+     */
+
+    /*
+     * COMMIT 39
+     * Título: Testa a aplicação completa com arquivo de exemplo e com arquivo gerado
+     * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Teste de integração do menu com as 6 tarefas no candidatos.txt de exemplo e em um arquivo de 40 candidatos gerado pelo GeradorCandidatos, conferindo os resultados com um cálculo feito à parte.
+     * Relatório de teste:
+     *   exemplo, grau 3 -> esperado Ana e Bruno companheiros e Carla sem companheiro -> obtido igual (OK)
+     *   gerado (40 candidatos), grau 4, tarefa 3 com K = 3 -> esperado ids 29 e 34 (11 companheiros, empate pelo menor id) e depois o id 1 (8 companheiros) -> obtido igual ao cálculo conferido à parte (OK)
+     *   gerado, grau 4, tarefa 4 -> esperado 11 candidatos sem companheiro (ids 2, 3, 5, 7, 14, 19, 22, 25, 31, 32 e 39) -> obtido igual (OK)
+     *   relação simétrica (se A é companheiro de B, B é de A) conferida no arquivo gerado -> OK
+     *   tarefas 5 e 6 no arquivo gerado -> esperado só candidatos da área/estado pedido -> obtido igual (OK)
+     */
 }

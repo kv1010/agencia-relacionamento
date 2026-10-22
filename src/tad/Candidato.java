@@ -11,7 +11,7 @@ public class Candidato {
     private ListaIdentificadores areas; //codigos (1 a 8) das areas de interesse
     private ListaIdentificadores potenciaisCompanheiros; //ids dos companheiros
 
-    private static int grauMinimo = 0; //vale para todos os candidatos
+    private static int grauMinimo = 0; //é estático e vale para todos os candidatos
 
     //construtor
     public Candidato(int id, String nome, String siglaEstado, char sexo, char sexoInteresse, ListaIdentificadores areas) {
@@ -69,6 +69,11 @@ public class Candidato {
         }
     }
 
+    /*
+     * COMMIT 11
+     * Título: Troca o vetor de áreas do Candidato por ListaIdentificadores
+     */
+
     //devolve o peso de uma area (1: 1, 2: 2, 3: 1, 4: 1, 5: 3, 6: 2, 7: 2, 8: 3)
     private int pesoArea(int area) {
         switch (area) {
@@ -87,7 +92,7 @@ public class Candidato {
 
     //calcular o grau de interesse em comum com o candidato v
     private int calculaGrauInteresse(Candidato v) {
-        int grauTotal = 0;
+        int grauTotal = 0; //local para guardar a soma dos pesos
         for (int i = 0; i < this.areas.size(); i++) {
             int area = this.areas.get(i);
             if (v.temInteresse(area)) //se ambos tem interesse na mesma area soma o peso
@@ -96,82 +101,113 @@ public class Candidato {
         return grauTotal;
     }
 
+    /*
+     * COMMIT 15
+     * Título: Remove o vetor de pesos e calcula o grau de interesse com pesoArea
+     */
+
     // Retorna verdadeiro se v é um potencial companheiro válido para este candidato
     public boolean verificaPotencialCompanheiro(Candidato v) {
+        //não é null e é diferente de this
         if (v == null || this.id == v.getId()) {
             return false;
         }
+
+        //Mesmo estado
         if (!this.siglaEstado.equals(v.getEstado())) {
             return false;
         }
-        //Orientação MÚTUA
+
+        //Orientação MÚTUA (this atende v E v atende esta)
         if (!this.atendeOrientacao(v) || !v.atendeOrientacao(this)) {
             return false;
         }
+
+        //Grau de interesse em comum maior ou igual ao grau mínimo estático (cálculo pesado por último)
         if (this.calculaGrauInteresse(v) < grauMinimo) {
             return false;
         }
+
         return true;
     }
 
+    // Retorna verdadeiro se o candidato atual aceita o sexo do candidato v (considerando 'I' como coringa)
     private boolean atendeOrientacao(Candidato v) {
         return this.sexoInteresse == 'I' || this.sexoInteresse == v.getSexo();
     }
 
+    //retorna verdadeiro se o estado do candidato corresponde a sigla fornecida
     public boolean reside(String sigla) {
         return this.siglaEstado.equalsIgnoreCase(sigla);
     }
 
+    //limpa os companheiros que foram adicionados
     public void limpaCompanheiros() {
         this.potenciaisCompanheiros.clear();
     }
 
+    //Adiciona o identificador do candidato v na lista de potenciais companheiros
     public void inserePotencialCompanheiro(Candidato v) {
         if (v != null) {
             this.potenciaisCompanheiros.add(v.getId());
         }
     }
 
+    //Retorna quantos companheiros estão na lista
     public int numeroCompanheiros() {
         return this.potenciaisCompanheiros.size();
     }
 
+    //Retorna a lista com os IDs dos companheiros
     public ListaIdentificadores listaCompanheiros() {
         return this.potenciaisCompanheiros;
     }
 
+    /*
+     * COMMIT 17
+     * Título: Faz listaCompanheiros devolver a ListaIdentificadores em vez de vetor
+     */
+
+    //retorna o id
     public int getId() {
         return id;
     }
 
+    //retorna o nome
     public String getNome() {
         return nome;
     }
 
+    //retorna a siglaEstado
     public String getEstado() {
         return siglaEstado;
     }
 
+    //retorna o sexo
     public char getSexo() {
         return sexo;
     }
 
+    //retorna o sexo de interesse
     public char getSexoInteresse() {
         return sexoInteresse;
     }
 
+    //recebe graumin
     public static int getGrauMinimo() {
         return grauMinimo;
     }
-
+    //altera graumin
     public static void setGrauMinimo(int grauMinimo) {
         Candidato.grauMinimo = grauMinimo;
     }
 
+    //altera nome
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    //altera siglaEstado
     public void setEstado(String siglaEstado) {
         if (siglaEstado != null) {
             this.siglaEstado = siglaEstado.toUpperCase();
@@ -180,17 +216,24 @@ public class Candidato {
         }
     }
 
+    //altera sexo
     public void setSexo(char sexo) {
         this.sexo = Character.toUpperCase(sexo);
     }
 
+    //altera sexoInteresse
     public void setSexoInteresse(char sexoInteresse) {
         this.sexoInteresse = Character.toUpperCase(sexoInteresse);
     }
 
-    //(id - nome)
+    //texto usado para imprimir o candidato (id - nome)
     @Override
     public String toString() {
         return id + " - " + nome;
     }
+
+    /*
+     * COMMIT 19
+     * Título: Adiciona toString no Candidato (id - nome)
+     */
 }

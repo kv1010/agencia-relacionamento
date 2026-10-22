@@ -56,6 +56,10 @@ public class LeitorCandidatos {
                 candidatos.add(new Candidato(i, nome, estado, sexo, sexoInteresse, areas));
             }
 
+            /*
+             * COMMIT 12
+             * Título: Adapta LeitorCandidatos para ListaEncadeada e ListaIdentificadores
+             */
 
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
@@ -69,4 +73,9 @@ public class LeitorCandidatos {
         }
         return candidatos;
     }
+
+    /*
+     * COMMIT 13
+     * Título: Trata arquivo incompleto ou fora do formato no LeitorCandidatos
+     */
 }
