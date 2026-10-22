@@ -17,18 +17,18 @@ public class LeitorCandidatos {
 
         try (BufferedReader leitor = new BufferedReader(new FileReader(caminhoArquivo))) {
 
-            //lê a primeira linha para pegar o N(total de candidatos)
+            //lê a primeira linha para pegar o total de candidatos
             String linhaN = leitor.readLine();
             if (linhaN == null)
                 return null;
             int n = Integer.parseInt(linhaN.trim());
 
-            //lê candidato por candidato(0 até n-1)
+            //lê candidato por candidato
             for (int i = 0; i < n; i++) {
                 //lê a linha do ****
                 String linha = leitor.readLine();
 
-                //se a linha lida for separador ****, lemos a proxima linha para pegar o nome
+                //se a linha lida for separador ****, le a proxima linha para pegar o nome
                 if (linha != null && linha.trim().equals("****")) {
                     linha = leitor.readLine();
                 }
@@ -47,19 +47,15 @@ public class LeitorCandidatos {
                 int qtdAreas = Integer.parseInt(leitor.readLine().trim());
                 ListaIdentificadores areas = new ListaIdentificadores();
 
-                //lê cada codigo da area de interesse(uma por linha)
+                //lê cada codigo da area de interesse uma por linha
                 for (int a = 0; a < qtdAreas; a++) {
                     areas.add(Integer.parseInt(leitor.readLine().trim()));
                 }
 
-                //cria o candidato com o id correspondente a sua posição i na lista
+                //cria o candidato com o id que corresponde a sua posição i na lista
                 candidatos.add(new Candidato(i, nome, estado, sexo, sexoInteresse, areas));
             }
 
-            /*
-             * COMMIT 12
-             * Título: Adapta LeitorCandidatos para ListaEncadeada e ListaIdentificadores
-             */
 
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
@@ -73,9 +69,4 @@ public class LeitorCandidatos {
         }
         return candidatos;
     }
-
-    /*
-     * COMMIT 13
-     * Título: Trata arquivo incompleto ou fora do formato no LeitorCandidatos
-     */
 }

@@ -8,10 +8,10 @@ public class Candidato {
     private String siglaEstado;
     private char sexo;
     private char sexoInteresse;
-    private ListaIdentificadores areas; //codigos (1 a 8) das areas de interesse
+    private ListaIdentificadores areas; //codigos (1 a 8) das areas
     private ListaIdentificadores potenciaisCompanheiros; //ids dos companheiros
 
-    private static int grauMinimo = 0; //é estático e vale para todos os candidatos
+    private static int grauMinimo = 0; //vale para todos os candidatos
 
     //construtor
     public Candidato(int id, String nome, String siglaEstado, char sexo, char sexoInteresse, ListaIdentificadores areas) {
@@ -27,7 +27,7 @@ public class Candidato {
         this.areas = new ListaIdentificadores();
         this.potenciaisCompanheiros = new ListaIdentificadores();
 
-        //copia as areas recebidas (so entram areas validas e sem repetir)
+        //copia as areas recebidas
         if (areas != null) {
             for (int i = 0; i < areas.size(); i++) {
                 marcarInteresse(areas.get(i));
@@ -35,7 +35,7 @@ public class Candidato {
         }
     }
 
-    //registrar as áreas de interesse na lista (ignora area invalida e repetida)
+    //registra as areas de interesse na lista
     private boolean marcarInteresse(int area) {
         if (area >= 1 && area <= 8 && !this.areas.contains(area)) {
             this.areas.add(area);
@@ -44,35 +44,30 @@ public class Candidato {
         return false;
     }
 
-    //retorna verdadeiro se o candidato possui interesse na area informada
+    //retorna verdadeiro se o candidato possui interesse na area
     public boolean temInteresse(int area) {
         return this.areas.contains(area);
     }
 
-    //retorna as areas escolhidas
+    //retorna as areas
     public ListaIdentificadores getAreas() {
         return areas;
     }
 
     //altera areasInteresse
     public void setAreas(ListaIdentificadores novasAreas) {
-        ListaIdentificadores copia = new ListaIdentificadores(); //copia antes de limpar, caso seja a mesma lista
+        ListaIdentificadores copia = new ListaIdentificadores();
         if (novasAreas != null) {
             for (int i = 0; i < novasAreas.size(); i++) {
                 copia.add(novasAreas.get(i));
             }
         }
 
-        this.areas.clear(); //apagando todas as areas de interesse
+        this.areas.clear(); //apaga as areas de interesse
         for (int i = 0; i < copia.size(); i++) {
-            marcarInteresse(copia.get(i)); //inserindo as novas
+            marcarInteresse(copia.get(i)); //insere novas
         }
     }
-
-    /*
-     * COMMIT 11
-     * Título: Troca o vetor de áreas do Candidato por ListaIdentificadores
-     */
 
     //devolve o peso de uma area (1: 1, 2: 2, 3: 1, 4: 1, 5: 3, 6: 2, 7: 2, 8: 3)
     private int pesoArea(int area) {
@@ -92,7 +87,7 @@ public class Candidato {
 
     //calcular o grau de interesse em comum com o candidato v
     private int calculaGrauInteresse(Candidato v) {
-        int grauTotal = 0; //local para guardar a soma dos pesos
+        int grauTotal = 0; //soma dos pesos
         for (int i = 0; i < this.areas.size(); i++) {
             int area = this.areas.get(i);
             if (v.temInteresse(area)) //se ambos tem interesse na mesma area soma o peso
@@ -101,37 +96,27 @@ public class Candidato {
         return grauTotal;
     }
 
-    /*
-     * COMMIT 15
-     * Título: Remove o vetor de pesos e calcula o grau de interesse com pesoArea
-     */
-
     // Retorna verdadeiro se v é um potencial companheiro válido para este candidato
     public boolean verificaPotencialCompanheiro(Candidato v) {
-        //não é null e é diferente de this
         if (v == null || this.id == v.getId()) {
             return false;
         }
-
         //Mesmo estado
         if (!this.siglaEstado.equals(v.getEstado())) {
             return false;
         }
-
-        //Orientação MÚTUA (this atende v E v atende esta)
+        //Orientação MÚTUA
         if (!this.atendeOrientacao(v) || !v.atendeOrientacao(this)) {
             return false;
         }
-
-        //Grau de interesse em comum maior ou igual ao grau mínimo estático (cálculo pesado por último)
+        //Grau de interesse em comum <= ao grau mínimo
         if (this.calculaGrauInteresse(v) < grauMinimo) {
             return false;
         }
-
         return true;
     }
 
-    // Retorna verdadeiro se o candidato atual aceita o sexo do candidato v (considerando 'I' como coringa)
+    // Retorna verdadeiro se o candidato atual aceita o sexo do candidato v (considera I)
     private boolean atendeOrientacao(Candidato v) {
         return this.sexoInteresse == 'I' || this.sexoInteresse == v.getSexo();
     }
@@ -158,15 +143,10 @@ public class Candidato {
         return this.potenciaisCompanheiros.size();
     }
 
-    //Retorna a lista com os IDs dos companheiros
+    //Retorna a lista com os id dos companheiros
     public ListaIdentificadores listaCompanheiros() {
         return this.potenciaisCompanheiros;
     }
-
-    /*
-     * COMMIT 17
-     * Título: Faz listaCompanheiros devolver a ListaIdentificadores em vez de vetor
-     */
 
     //retorna o id
     public int getId() {
@@ -226,14 +206,9 @@ public class Candidato {
         this.sexoInteresse = Character.toUpperCase(sexoInteresse);
     }
 
-    //texto usado para imprimir o candidato (id - nome)
+    //texto candidato (id - nome)
     @Override
     public String toString() {
         return id + " - " + nome;
     }
-
-    /*
-     * COMMIT 19
-     * Título: Adiciona toString no Candidato (id - nome)
-     */
 }

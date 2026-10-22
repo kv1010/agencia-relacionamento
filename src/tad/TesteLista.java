@@ -51,16 +51,3 @@ public class TesteLista {
         System.out.println("Tamanho da lista: " + lista.size()); // 0
     }
 }
-
-/*
- * COMMIT 10
- * Título: Atualiza TesteLista para usar get e toString no lugar do toArray
- * Descrição: Relatório: DD/MM/AAAA ; X h ; Realizar os testes ; Atualização do TesteLista da ListaIdentificadores: percorre a lista com get dentro de um while e testa toString, contains, isEmpty, size, posição inválida e clear.
- * Relatório de teste:
- *   add 15, 40, 8 e percorrer com get -> esperado "15 40 8" -> obtido igual (OK)
- *   toString -> esperado "[ 15 40 8 ]" -> obtido igual (OK)
- *   contains(10) e contains(40) -> esperado false e true -> obtido igual (OK)
- *   isEmpty e size -> esperado false e 3 -> obtido igual (OK)
- *   get(3) -> esperado IndexOutOfBoundsException -> lançada (OK)
- *   clear -> esperado vazia true e tamanho 0 -> obtido igual (OK)
- */
