@@ -1,0 +1,172 @@
+AGENCIA DE RELACIONAMENTO - LEIAME
+Lab. AED I - Engenharia da Computacao - CEFET-MG Campus Timoteo - Trabalho 1
+Autores: kv1010 (Parte A - pacote tad) e Lud-o (Parte B - pacote app)
+
+1. O QUE E O PROGRAMA
+---------------------
+Aplicacao em Java, de linha de comando, que le os cadastros de candidatos de uma
+agencia de relacionamento (arquivo candidatos.txt) e identifica os potenciais
+companheiros de cada candidato. O usuario escolhe as tarefas por um menu.
+
+Todas as estruturas de dados foram implementadas pela dupla (listas simplesmente
+encadeadas com sentinela e tail). Nao ha ArrayList, LinkedList nem vetores de dados.
+
+2. REQUISITOS
+-------------
+- Java JDK instalado (comandos javac e java disponiveis no terminal).
+- Versao usada no desenvolvimento: [PREENCHER com a saida de "java -version"]
+- O codigo tambem foi compilado e testado com OpenJDK 21.
+
+3. ORGANIZACAO DOS ARQUIVOS
+---------------------------
+src/tad/ListaEncadeada.java         lista generica (guarda os candidatos e os nomes do gerador)
+src/tad/ListaIdentificadores.java   lista de inteiros (areas de interesse e ids dos companheiros)
+src/tad/Candidato.java              TAD Candidato
+src/tad/TesteListaEncadeada.java    teste da lista generica
+src/tad/TesteLista.java             teste da lista de identificadores
+src/tad/TesteCandidato.java         teste do TAD Candidato
+src/app/LeitorCandidatos.java       le o candidatos.txt
+src/app/Main.java                   programa principal (menu e as 6 tarefas)
+src/app/GeradorCandidatos.java      programa auxiliar que gera o candidatos.txt
+src/app/TesteLeitor.java            teste do leitor
+nomes.txt                           dicionario de nomes usado pelo gerador
+candidatos.txt                      arquivo de exemplo (3 candidatos)
+
+4. COMO COMPILAR
+----------------
+Na pasta do projeto (a que contem a pasta src), execute:
+
+    javac -d bin src/tad/*.java src/app/*.java
+
+Os arquivos compilados ficam na pasta bin.
+
+5. COMO GERAR O ARQUIVO DE CANDIDATOS (programa auxiliar)
+---------------------------------------------------------
+    java -cp bin app.GeradorCandidatos [quantidade] [arquivo de nomes] [arquivo de saida]
+
+Exemplos:
+    java -cp bin app.GeradorCandidatos                          (30 candidatos, nomes.txt -> candidatos.txt)
+    java -cp bin app.GeradorCandidatos 200 nomes.txt candidatos.txt
+
+O gerador sorteia o estado entre MG, SP e RJ (poucos estados, para facilitar a
+formacao de pares), o sexo (F ou M), o sexo de interesse (F, M ou I) e de 1 a 8
+areas de interesse sem repeticao. O arquivo de nomes deve ter um nome por linha.
+
+6. COMO EXECUTAR A APLICACAO
+----------------------------
+    java -cp bin app.Main [arquivo]
+
+Se nenhum arquivo for informado, o programa le o candidatos.txt da pasta atual.
+Exemplo com um arquivo especifico:
+    java -cp bin app.Main candidatos.txt
+
+Ao iniciar, o programa informa quantos candidatos foram carregados e mostra o menu:
+
+    1 - Inserir/atualizar o grau de interesse e calcular os pares
+    2 - Imprimir os potenciais companheiros de um candidato
+    3 - Imprimir os K candidatos com mais companheiros
+    4 - Imprimir candidatos sem nenhum companheiro
+    5 - Imprimir candidatos com interesse em uma area
+    6 - Imprimir candidatos que residem em um estado
+    0 - Sair
+
+IMPORTANTE: execute a opcao 1 antes das opcoes 2, 3 e 4. Elas dependem dos pares
+calculados na opcao 1. As opcoes 5 e 6 podem ser usadas a qualquer momento.
+
+7. COMO USAR CADA OPCAO
+-----------------------
+Opcao 1 - Digite o grau de interesse desejado (inteiro maior ou igual a zero, por
+          exemplo 6). O programa recalcula os potenciais companheiros de todos os
+          candidatos. Pode ser repetida com outro grau a qualquer momento.
+Opcao 2 - Digite o id do candidato (a posicao dele no arquivo, de 0 ate N-1).
+          O programa imprime o numero de potenciais companheiros e seus nomes.
+Opcao 3 - Digite K. O programa imprime os K candidatos com mais companheiros. Em caso
+          de empate vence o menor id. Se K for maior que o total, imprime todos.
+Opcao 4 - Nao pede dados. Imprime id e nome dos candidatos sem nenhum companheiro.
+Opcao 5 - Digite o codigo da area (1 a 8). Imprime id e nome dos candidatos que tem
+          interesse nela.
+Opcao 6 - Digite a sigla do estado (maiusculas ou minusculas). Imprime id e nome dos
+          candidatos que residem nele.
+Opcao 0 - Encerra o programa.
+
+Codigos das areas: 1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS
+7-GASTRONOMIA 8-CIENCIAS
+
+8. REGRAS PARA DOIS CANDIDATOS SEREM POTENCIAIS COMPANHEIROS
+-------------------------------------------------------------
+Os tres criterios precisam ser verdadeiros ao mesmo tempo:
+a) Moram no mesmo estado.
+b) A orientacao e mutua: o sexo de cada um atende ao sexo de interesse do outro.
+   O valor I (qualquer sexo) aceita todos.
+c) O grau de interesse em comum e maior ou igual ao grau digitado na opcao 1.
+   O grau em comum e a soma dos pesos das areas que os dois tem em comum:
+       peso 1: ESPORTES, MUSICA, CINEMA
+       peso 2: ARTES, ANIMAIS, GASTRONOMIA
+       peso 3: TECNOLOGIA, CIENCIAS
+Como a regra vale para os dois lados, a relacao e simetrica.
+
+9. FORMATO DO ARQUIVO candidatos.txt
+------------------------------------
+    N
+    ****
+    nome
+    sigla_estado
+    sexo
+    sexo_interesse
+    numero_areas
+    area_1
+    area_2
+    ...
+    ****
+    (proximo candidato)
+
+N e o numero de candidatos. O id de cada candidato e a ordem em que aparece no
+arquivo, comecando em 0. Exemplo (arquivo de exemplo entregue):
+
+    3
+    ****
+    Ana Souza
+    MG
+    F
+    M
+    3
+    1
+    3
+    5
+    ****
+    Bruno Lima
+    MG
+    M
+    F
+    3
+    3
+    5
+    2
+    ****
+    Carla Dias
+    SP
+    F
+    I
+    1
+    2
+
+Com grau de interesse 3: Ana e Bruno sao companheiros (areas em comum MUSICA, peso 1,
+e TECNOLOGIA, peso 3, somando 4) e Carla fica sem nenhum companheiro, pois mora em
+outro estado.
+
+10. COMO EXECUTAR OS TESTES
+---------------------------
+    java -cp bin tad.TesteListaEncadeada
+    java -cp bin tad.TesteLista
+    java -cp bin tad.TesteCandidato
+    java -cp bin app.TesteLeitor candidatos.txt
+
+Cada teste imprime os resultados na tela; o resultado esperado de cada linha esta
+indicado em comentario no codigo do teste.
+
+11. OBSERVACOES
+---------------
+- O programa le o arquivo pelo caminho informado; se o arquivo nao existir ou estiver
+  fora do formato, uma mensagem de erro e exibida e o programa termina.
+- Com muitos candidatos a opcao 1 fica mais lenta, pois as listas sao acessadas por
+  posicao: com 300 candidatos leva menos de 1 segundo; com 2000, mais de 20 segundos.

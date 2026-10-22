@@ -1,0 +1,96 @@
+RELATÓRIO DE ATIVIDADES
+Responsável: Luiz Fernando Alves do Prado
+Parte B — Implementação do pacote app
+Escopo: Leitura do arquivo, menu interativo, tarefas e gerador de candidatos
+
+========================================================================
+
+DATA: 14/10/2026
+------------------------------------------------------------------------
+
+[0h12min] Projetar
+Descrição: Validação da estrutura de diretórios do projeto para a separação entre os pacotes tad e app.
+
+[0h30min] Codificar módulo
+Descrição: Implementação da classe LeitorCandidatos com BufferedReader, lendo o número N, os blocos separados por asteriscos e os dados de cada candidato, com o id igual à posição de leitura.
+
+Total registrado no dia: 42min
+------------------------------------------------------------------------
+
+DATA: 19/10/2026
+------------------------------------------------------------------------
+
+[0h25min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Adaptação do LeitorCandidatos para devolver uma ListaEncadeada de Candidato no lugar do vetor e para montar as áreas de cada candidato em uma ListaIdentificadores antes de criá-lo.
+
+[0h10min] Codificar módulo
+Descrição: Tratamento de arquivo incompleto ou fora do formato no LeitorCandidatos, com mensagem de erro e retorno nulo.
+
+[0h20min] Realizar os testes
+Descrição: Criação do TesteLeitor, que carrega um arquivo e imprime id, nome, estado, sexos e áreas de cada candidato, testando o candidatos.txt de exemplo, um arquivo incompleto, um com texto no lugar de número e um inexistente. Resultados obtidos iguais aos esperados.
+
+[0h30min] Codificar módulo
+Descrição: Criação da classe Main com a leitura do arquivo candidatos.txt e o menu textual interativo (Scanner) para escolher entre as 6 tarefas ou sair, com leitura de números validada.
+
+[0h15min] Realizar os testes
+Descrição: Teste do menu com o arquivo de exemplo: texto no lugar de número, opção inválida e saída pela opção 0. Mensagens obtidas iguais às esperadas.
+
+[0h30min] Codificar módulo
+Descrição: Implementação da tarefa 1: leitura do grau de interesse e recálculo dos potenciais companheiros de todos os candidatos, com dois laços while aninhados e limpaCompanheiros antes de recalcular.
+
+[0h15min] Realizar os testes
+Descrição: Teste da tarefa 1 com grau válido (3), negativo (-5) e texto, e conferência de que a tarefa 2 avisa quando o grau ainda não foi definido. Resultados obtidos iguais aos esperados.
+
+[0h20min] Codificar módulo
+Descrição: Implementação da tarefa 2: impressão do número e dos nomes dos potenciais companheiros de um candidato, buscando cada nome pelo id na lista de candidatos.
+
+[0h15min] Realizar os testes
+Descrição: Teste da tarefa 2 com grau 3 no arquivo de exemplo: candidato com companheiro (Ana e Bruno), sem companheiro (Carla) e id inválido. Resultados obtidos iguais aos esperados.
+
+Total registrado no dia: 3h
+------------------------------------------------------------------------
+
+DATA: 20/10/2026
+------------------------------------------------------------------------
+
+[0h40min] Codificar módulo
+Descrição: Implementação da tarefa 3: seleção dos K candidatos com mais companheiros, repetindo a busca do maior ainda não impresso (desempate pelo menor id) e guardando os ids já impressos em uma ListaIdentificadores, sem vetores.
+
+[0h20min] Realizar os testes
+Descrição: Teste da tarefa 3 com grau 3: K = 1, K = 2, K maior que o total (10) e K = 0, conferindo o desempate pelo menor id. Resultados obtidos iguais aos esperados.
+
+[0h10min] Codificar módulo
+Descrição: Implementação da tarefa 4: impressão de id e nome dos candidatos sem nenhum companheiro.
+
+[0h10min] Realizar os testes
+Descrição: Teste da tarefa 4 no arquivo de exemplo com grau 3 (só a Carla) e grau 6 (os 3 candidatos). Resultados obtidos iguais aos esperados.
+
+[0h10min] Codificar módulo
+Descrição: Implementação da tarefa 5: impressão de id e nome dos candidatos com interesse na área informada (código de 1 a 8).
+
+[0h10min] Realizar os testes
+Descrição: Teste da tarefa 5 com as áreas 3 e 2 (candidatos encontrados), 8 (nenhum candidato) e 9 (área inválida). Resultados obtidos iguais aos esperados.
+
+[0h10min] Codificar módulo
+Descrição: Implementação da tarefa 6: impressão de id e nome dos candidatos que residem no estado informado, sem diferenciar maiúsculas de minúsculas.
+
+[0h10min] Realizar os testes
+Descrição: Teste da tarefa 6 com as siglas mg, SP e rj no arquivo de exemplo. Resultados obtidos iguais aos esperados.
+
+[0h15min] Codificar módulo
+Descrição: Implementação da leitura do dicionário de nomes no GeradorCandidatos, guardando os nomes em uma ListaEncadeada e ignorando linhas em branco.
+
+[0h20min] Codificar módulo
+Descrição: Implementação dos sorteios do GeradorCandidatos: estado (MG, SP ou RJ), sexo de interesse (F, M ou I) e de 1 a 8 áreas sem repetição, usando ListaIdentificadores.
+
+[0h25min] Codificar módulo
+Descrição: Implementação da gravação do candidatos.txt no GeradorCandidatos, no formato do enunciado, com quantidade e arquivos informados por argumentos.
+
+[0h20min] Realizar os testes
+Descrição: Teste do GeradorCandidatos com 40 candidatos: conferência do formato e das regras do arquivo gerado, leitura pelo TesteLeitor e execução com argumentos inválidos. Resultados obtidos iguais aos esperados.
+
+[0h30min] Realizar os testes
+Descrição: Teste de integração do menu com as 6 tarefas no arquivo de exemplo e em um arquivo gerado de 40 candidatos, com grau 4, conferindo top K, candidatos sem companheiros e simetria com um cálculo feito à parte.
+
+Total registrado no dia: 3h50min
+------------------------------------------------------------------------

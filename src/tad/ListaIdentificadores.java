@@ -6,12 +6,11 @@ public class ListaIdentificadores {
     private Celula tail;
     private int size;
 
-    // classe celula
     class Celula {
         int item;
         Celula prox;
 
-        // Construtor vazio (para a sentinela)
+        // Construtor sentinela
         public Celula() {
             this.item = 0;
             this.prox = null;
@@ -25,7 +24,7 @@ public class ListaIdentificadores {
     }
 
     // Construtor
-    ListaIdentificadores() {
+    public ListaIdentificadores() {
         head = new Celula();
         tail = head;
         size = 0;
@@ -39,12 +38,10 @@ public class ListaIdentificadores {
         size++;
     }
 
-    //retorna o tamanho da lista
     public int size() {
         return size;
     }
 
-    //verifica se a lista está vazia ou não
     public boolean isEmpty() {
         return head.prox == null;
     }
@@ -60,24 +57,35 @@ public class ListaIdentificadores {
         return false;
     }
 
-    //limpar a lista
     public void clear() {
         head.prox = null;
         tail = head;
         size = 0;
     }
 
-    //Copia os elementos da lista pra um vetor
-    public int[] toArray() {
-        int[] vetor = new int[size]; //vetor com tamanho size
-        Celula atual = head.prox;
-        int i = 0;
-        while (atual != null) {
-            vetor[i] = atual.item;//vetor[i] recebe o item da celula atual 
-            i++;
-            atual = atual.prox;
+    public int get(int i) {
+        if (i < 0 || i >= size) {
+            throw new IndexOutOfBoundsException("Posicao invalida: " + i);
         }
-        return vetor;
+        Celula atual = head.prox;
+        int cont = 0;
+        while (cont < i) {
+            atual = atual.prox;
+            cont++;
+        }
+        return atual.item;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[ ");
+        Celula atual = head.prox;
+        while (atual != null) {
+            sb.append(atual.item);
+            sb.append(" ");
+            atual = atual.prox;
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }

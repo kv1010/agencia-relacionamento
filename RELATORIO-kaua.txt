@@ -1,0 +1,177 @@
+RELATÓRIO DE ATIVIDADES
+Responsável: kv1010
+Parte A — TADs do pacote tad
+Escopo: ListaIdentificadores e Candidato
+
+========================================================================
+
+DATA: 05/10/2026
+------------------------------------------------------------------------
+
+[0h30min] Projetar
+Descrição: Definição da estrutura de pastas do projeto, separando os pacotes tad e app, e criação do .gitignore e dos arquivos base de documentação.
+
+[0h10min] Projetar
+Descrição: Criação do repositório no GitHub (commit inicial) para o desenvolvimento em dupla.
+
+[0h12min] Codificar módulo
+Descrição: Criação da classe ListaIdentificadores com os atributos head, tail e size e o construtor que inicializa a célula sentinela e o tail.
+
+[0h06min] Codificar módulo
+Descrição: Implementação do método add (inserção no fim da lista), com o atributo head temporariamente visível no pacote para validar por uma classe de teste temporária.
+
+[0h02min] Codificar módulo
+Descrição: Implementação do método size, que retorna o tamanho atual da lista em tempo constante.
+
+[0h03min] Codificar módulo
+Descrição: Implementação do método isEmpty, que informa se a lista está vazia, validado com lista vazia e com elementos.
+
+Total registrado no dia: 1h03min
+------------------------------------------------------------------------
+
+DATA: 06/10/2026
+------------------------------------------------------------------------
+
+[0h10min] Codificar módulo
+Descrição: Implementação do método contains, que busca um identificador na lista, validado com casos de sucesso e de falha.
+
+[0h05min] Codificar módulo
+Descrição: Implementação do método clear, que esvazia a lista reiniciando a sentinela, o tail e o size.
+
+[0h20min] Codificar módulo
+Descrição: Implementação do método toArray, que converte a lista encadeada em um vetor de inteiros.
+
+[0h10min] Realizar os testes
+Descrição: Ajuste do TesteLista para usar apenas métodos públicos e validação dos métodos da lista; o atributo head volta a ser private e o método contains é corrigido.
+
+[0h20min] Codificar módulo
+Descrição: Implementação dos atributos cadastrais, do vetor de áreas de interesse e da lista de potenciais companheiros do TAD Candidato, com o construtor.
+
+Total registrado no dia: 1h05min
+------------------------------------------------------------------------
+
+DATA: 07/10/2026
+------------------------------------------------------------------------
+
+[0h20min] Codificar módulo
+Descrição: Implementação dos métodos reside, temInteresse e marcarInteresse no TAD Candidato.
+
+[0h30min] Codificar módulo
+Descrição: Implementação dos métodos inserePotencialCompanheiro, numeroCompanheiros e listaCompanheiros no TAD Candidato.
+
+Total registrado no dia: 50min
+------------------------------------------------------------------------
+
+DATA: 08/10/2026
+------------------------------------------------------------------------
+
+[0h30min] Codificar módulo
+Descrição: Implementação do método privado calculaGrauInteresse, que soma os pesos das áreas de interesse em comum, e correção do tamanho do vetor de áreas.
+
+[1h00min] Codificar módulo
+Descrição: Ajuste de temInteresse com proteção de intervalo, implementação de limpaCompanheiros e ajustes no construtor e no calculaGrauInteresse.
+
+Total registrado no dia: 1h30min
+------------------------------------------------------------------------
+
+DATA: 09/10/2026
+------------------------------------------------------------------------
+
+[0h18min] Codificar módulo
+Descrição: Implementação dos métodos de acesso getNome, getEstado, getSexo, getSexoInteresse e getAreas no TAD Candidato.
+
+[0h30min] Codificar módulo
+Descrição: Implementação dos setters setNome, setEstado, setSexo, setSexoInteresse e setAreas (com limpeza prévia das áreas), conversão para maiúsculas e marcarInteresse como método privado.
+
+Total registrado no dia: 48min
+------------------------------------------------------------------------
+
+DATA: 13/10/2026
+------------------------------------------------------------------------
+
+[0h03min] Codificar módulo
+Descrição: Adição do campo estático grauMinimo e dos métodos estáticos getGrauMinimo e setGrauMinimo no TAD Candidato.
+
+Total registrado no dia: 3min
+------------------------------------------------------------------------
+
+DATA: 14/10/2026
+------------------------------------------------------------------------
+
+[1h00min] Codificar módulo
+Descrição: Implementação do método auxiliar atendeOrientacao e do método verificaPotencialCompanheiro, com validações em cascata (candidato diferente, mesmo estado, orientação mútua e grau mínimo).
+
+Total registrado no dia: 1h
+------------------------------------------------------------------------
+
+DATA: 15/10/2026
+------------------------------------------------------------------------
+
+[1h30min] Realizar os testes
+Descrição: Criação da classe TesteCandidato com cenários para grau mínimo estático, residência, orientação mútua, Sexo de interesse I, casos limite e setAreas.
+
+Total registrado no dia: 1h30min
+------------------------------------------------------------------------
+
+DATA: 19/10/2026
+------------------------------------------------------------------------
+
+[0h20min] Codificar módulo
+Descrição: Criação da classe genérica ListaEncadeada<T> no pacote tad, no molde da LEDS do professor, com a classe interna Celula, os atributos head (sentinela), tail e size e o construtor da lista vazia.
+
+[0h10min] Codificar módulo
+Descrição: Implementação do método add da ListaEncadeada, que insere no fim da lista atualizando o tail e o size e ignora itens nulos.
+
+[0h20min] Codificar módulo
+Descrição: Implementação do método get(i) da ListaEncadeada, que percorre as células com um while até a posição i e lança IndexOutOfBoundsException se a posição for inválida.
+
+[0h10min] Codificar módulo
+Descrição: Implementação dos métodos size, isEmpty e clear da ListaEncadeada.
+
+[0h10min] Codificar módulo
+Descrição: Implementação do método toString da ListaEncadeada, que monta um texto com os itens da lista.
+
+[0h20min] Realizar os testes
+Descrição: Criação do TesteListaEncadeada com lista de String, testando lista vazia, add, toString, get, size, posições inválidas (-1 e 3), clear e novo add após o clear. Resultados obtidos iguais aos esperados.
+
+Total registrado no dia: 1h30min
+------------------------------------------------------------------------
+
+DATA: 20/10/2026
+------------------------------------------------------------------------
+
+[0h15min] Codificar módulo
+Descrição: Implementação do método get(i) na ListaIdentificadores, para acessar o id de uma posição com um while e lançar IndexOutOfBoundsException se a posição for inválida.
+
+[0h10min] Codificar módulo
+Descrição: Implementação do método toString na ListaIdentificadores.
+
+[0h05min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Construtor da ListaIdentificadores passa a ser público, para o pacote app conseguir criar a lista de áreas.
+
+[0h20min] Realizar os testes
+Descrição: Atualização do TesteLista da ListaIdentificadores para usar get dentro de um while e toString no lugar do toArray, testando também contains, isEmpty, size, posição inválida e clear. Resultados obtidos iguais aos esperados.
+
+[0h30min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Substituição do vetor boolean[] de áreas do Candidato por uma ListaIdentificadores: o construtor recebe as áreas como lista e copia só as válidas (1 a 8) e sem repetição, e temInteresse, getAreas e setAreas passam a usar a lista.
+
+[0h25min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Remoção do vetor de pesos do Candidato: criação do método privado pesoArea e adaptação do calculaGrauInteresse para percorrer a lista de áreas.
+
+[0h25min] Realizar os testes
+Descrição: Reescrita do TesteCandidato para o construtor com ListaIdentificadores, testando grau mínimo, simetria, estado diferente, orientação mútua, coringa I, casos limite, área repetida e inválida, estado em maiúscula e setAreas. Resultados obtidos iguais aos esperados.
+
+[0h10min] Diagnosticar e corrigir os problemas encontrados
+Descrição: O método listaCompanheiros do Candidato passa a devolver a ListaIdentificadores, no lugar do vetor de inteiros.
+
+[0h05min] Diagnosticar e corrigir os problemas encontrados
+Descrição: Remoção do método toArray da ListaIdentificadores, pois vetores não são permitidos e o Candidato deixou de usá-lo.
+
+[0h10min] Codificar módulo
+Descrição: Implementação do método toString do Candidato, que devolve id e nome (id - nome) para as impressões.
+
+[0h25min] Realizar os testes
+Descrição: Ampliação do TesteCandidato com inserePotencialCompanheiro, numeroCompanheiros, listaCompanheiros, limpaCompanheiros, reside sem diferenciar maiúsculas, temInteresse e toString. Resultados obtidos iguais aos esperados.
+
+Total registrado no dia: 3h
+------------------------------------------------------------------------

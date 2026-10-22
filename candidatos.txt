@@ -1,6 +1,6 @@
 3
 ****
-Ana
+Ana Souza
 MG
 F
 M
@@ -9,7 +9,7 @@ M
 3
 5
 ****
-Bruno
+Bruno Lima
 MG
 M
 F
@@ -18,11 +18,9 @@ F
 5
 2
 ****
-Carla
+Carla Dias
 SP
 F
-M
-3
+I
 1
-3
-5
+2
