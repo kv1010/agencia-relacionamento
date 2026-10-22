@@ -1,5 +1,5 @@
 RELATÓRIO DE ATIVIDADES
-Responsável: kv1010
+Responsável: Kauã Ferreira Viana
 Parte A — TADs do pacote tad
 Escopo: ListaIdentificadores e Candidato
 

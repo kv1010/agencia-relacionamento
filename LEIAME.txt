@@ -1,6 +1,6 @@
 AGENCIA DE RELACIONAMENTO - LEIAME
 Lab. AED I - Engenharia da Computacao - CEFET-MG Campus Timoteo - Trabalho 1
-Autores: kv1010 (Parte A - pacote tad) e Lud-o (Parte B - pacote app)
+Autores: Kauã (Parte A - pacote tad) e Luiz (Parte B - pacote app)
 
 1. O QUE E O PROGRAMA
 ---------------------
@@ -14,7 +14,7 @@ encadeadas com sentinela e tail). Nao ha ArrayList, LinkedList nem vetores de da
 2. REQUISITOS
 -------------
 - Java JDK instalado (comandos javac e java disponiveis no terminal).
-- Versao usada no desenvolvimento: [PREENCHER com a saida de "java -version"]
+- Versao usada no desenvolvimento: "21.0.12.1" 2026-08-18 LTS
 - O codigo tambem foi compilado e testado com OpenJDK 21.
 
 3. ORGANIZACAO DOS ARQUIVOS
@@ -45,7 +45,7 @@ Os arquivos compilados ficam na pasta bin.
     java -cp bin app.GeradorCandidatos [quantidade] [arquivo de nomes] [arquivo de saida]
 
 Exemplos:
-    java -cp bin app.GeradorCandidatos                          (30 candidatos, nomes.txt -> candidatos.txt)
+    java -cp bin app.GeradorCandidatos (30 candidatos, nomes.txt -> candidatos.txt)
     java -cp bin app.GeradorCandidatos 200 nomes.txt candidatos.txt
 
 O gerador sorteia o estado entre MG, SP e RJ (poucos estados, para facilitar a
@@ -78,15 +78,21 @@ calculados na opcao 1. As opcoes 5 e 6 podem ser usadas a qualquer momento.
 Opcao 1 - Digite o grau de interesse desejado (inteiro maior ou igual a zero, por
           exemplo 6). O programa recalcula os potenciais companheiros de todos os
           candidatos. Pode ser repetida com outro grau a qualquer momento.
+
 Opcao 2 - Digite o id do candidato (a posicao dele no arquivo, de 0 ate N-1).
           O programa imprime o numero de potenciais companheiros e seus nomes.
+
 Opcao 3 - Digite K. O programa imprime os K candidatos com mais companheiros. Em caso
           de empate vence o menor id. Se K for maior que o total, imprime todos.
+
 Opcao 4 - Nao pede dados. Imprime id e nome dos candidatos sem nenhum companheiro.
+
 Opcao 5 - Digite o codigo da area (1 a 8). Imprime id e nome dos candidatos que tem
           interesse nela.
+
 Opcao 6 - Digite a sigla do estado (maiusculas ou minusculas). Imprime id e nome dos
           candidatos que residem nele.
+
 Opcao 0 - Encerra o programa.
 
 Codigos das areas: 1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS
@@ -96,8 +102,10 @@ Codigos das areas: 1-ESPORTES 2-ARTES 3-MUSICA 4-CINEMA 5-TECNOLOGIA 6-ANIMAIS
 -------------------------------------------------------------
 Os tres criterios precisam ser verdadeiros ao mesmo tempo:
 a) Moram no mesmo estado.
+
 b) A orientacao e mutua: o sexo de cada um atende ao sexo de interesse do outro.
    O valor I (qualquer sexo) aceita todos.
+   
 c) O grau de interesse em comum e maior ou igual ao grau digitado na opcao 1.
    O grau em comum e a soma dos pesos das areas que os dois tem em comum:
        peso 1: ESPORTES, MUSICA, CINEMA
